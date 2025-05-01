@@ -3,12 +3,15 @@ import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "../index.css";
 import logo from "../assets/Byspoke-logo.png";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showVerifyOtp, setShowVerifyOtp] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,11 +25,18 @@ const ForgotPassword: React.FC = () => {
         { email }
       );
       setMessage(response.data.message || "Reset link sent!");
+      setShowVerifyOtp(true);
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to send reset link.");
+      setShowVerifyOtp(false);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleVerifyOtp = () => {
+    // Redirect to VerifyOtp component with optional email as state
+    navigate("/verifyotp", { state: { email } });
   };
 
   return (
@@ -68,11 +78,20 @@ const ForgotPassword: React.FC = () => {
               {error}
             </Alert>
           )}
+          {showVerifyOtp && (
+            <Button
+              variant="success"
+              className="mt-3 w-100"
+              onClick={handleVerifyOtp}
+            >
+              Verify OTP
+            </Button>
+          )}
         </div>
 
         {/* Right Panel */}
         <div className="auth-right">
-          <h2>Hello, Friend!</h2>
+          <h2>Hello</h2>
           <p>To stay connected, please return to the login page.</p>
           <Button href="/login" className="auth-button-outline">
             Back to Login

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 .login-container {
   display: flex;
   min-height: 100vh;
@@ -5,16 +7,13 @@
   align-items: center;
   background: radial-gradient(
     circle at 45% 50%,
-    #e9e9e9 100px,      /* inner soft glow (light grey) */
-    #d1d1d1 200px,      /* mid grey blend */
-    #a5b9f2 350px,      /* light blue transition */
-    #6f87c4 700px       /* outer cool blue */
+    #e9e9e9 100px,
+    /* inner soft glow (light grey) */ #d1d1d1 200px,
+    /* mid grey blend */ #a5b9f2 350px,
+    /* light blue transition */ #6f87c4 700px /* outer cool blue */
   );
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
-
 
 .login-card {
   display: flex;
@@ -176,133 +175,6 @@
   color: #007bff;
 }
 
-/* ----------- forgotpassword --------- */
-
-/* .forgot-container {
-  display: flex;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.form-box {
-  flex: 1;
-  background: #fff;
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-box h2 {
-  margin-bottom: 1.5rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  max-width: 300px;
-}
-
-form input {
-  margin: 0.5rem 0;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.reset-btn {
-  margin-top: 1rem;
-  padding: 10px;
-  background-color: #4B0082;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.welcome-box {
-  flex: 1;
-  background: linear-gradient(135deg, #4B0082, #6A5ACD);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem;
-  text-align: center;
-}
-
-.welcome-box h2 {
-  font-size: 2rem;
-}
-
-.welcome-box p {
-  margin-top: 1rem;
-  max-width: 250px;
-}
-
-.back-btn {
-  margin-top: 2rem;
-  padding: 10px 20px;
-  background-color: #fff;
-  color: #4B0082;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-} */
-
-/* 
-.forgot-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f2f5;
-}
-
-.form-box {
-  width: 350px;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.form-box h2 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form input {
-  margin: 0.5rem 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.reset-btn {
-  margin-top: 1rem;
-  padding: 10px;
-  background-color: #4B0082;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 ------------forgotpassword--------
 
 /* index.css */
@@ -313,10 +185,10 @@ form input {
   align-items: center;
   background: radial-gradient(
     circle at 40% 50%,
-    #e9e9e9 100px,      /* inner soft glow (light grey) */
-    #d1d1d1 200px,      /* mid grey blend */
-    #a5b9f2 350px,      /* light blue transition */
-    #6f87c4 700px       /* outer cool blue */
+    #e9e9e9 100px,
+    /* inner soft glow (light grey) */ #d1d1d1 200px,
+    /* mid grey blend */ #a5b9f2 350px,
+    /* light blue transition */ #6f87c4 700px /* outer cool blue */
   );
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -501,10 +373,8 @@ form input {
   color: white;
 }
 
-
 /* 
 ---------------register page ------------- */
-
 
 .register-wrapper {
   display: flex;
@@ -596,6 +466,87 @@ button.btn-light:hover {
   color: #2a1b59;
 }
 
+/* --------------------forgotpassword page ------------ */
+
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+    circle at 40% 50%,
+    #e9e9e9 100px,
+    /* inner soft glow (light grey) */ #d1d1d1 200px,
+    /* mid grey blend */ #a5b9f2 350px,
+    /* light blue transition */ #6f87c4 700px /* outer cool blue */
+  );
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-card {
+  display: flex;
+  width: 850px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.auth-left {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 40px;
+}
+
+.auth-right {
+  flex: 1;
+  background: linear-gradient(to right, #3b287c, #381e72);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-top-left-radius: 120px;
+  border-bottom-left-radius: 120px;
+}
+
+.auth-right h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.auth-right p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-button-outline {
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 25px;
+  transition: 0.3s ease-in-out;
+}
+
+.auth-button-outline:hover {
+  background-color: white;
+  color: #2a1b59; /* Updated hover text color */
+}
+
+.btn-primary {
+  background-color: #2a1b59 !important; /* Darker base color */
+  border-color: #2a1b59 !important;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1c1240 !important; /* Darker hover */
+  border-color: #1c1240 !important;
+  color: white;
+}
 
 /* -----------------verifyotp page ---------- */
 
@@ -686,7 +637,6 @@ button.btn-light:hover {
   background-color: #1c1240 !important;
   border-color: #1c1240 !important;
 }
-
 
 /* -----------------sidebar--------- */
 .sidebar-wrapper {
@@ -792,17 +742,6 @@ button.btn-light:hover {
   width: 100%;
 }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 12px 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
 .breadcrumb {
   font-size: 14px;
   color: #444;
@@ -810,7 +749,15 @@ button.btn-light:hover {
 
 .top-icons {
   display: flex;
-  gap: 16px;
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .top-icon {
@@ -836,7 +783,7 @@ button.btn-light:hover {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .master-table th,
@@ -863,7 +810,7 @@ button.btn-light:hover {
   align-items: center;
   background-color: #fff;
   padding: 12px 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   border-radius: 8px;
 }
@@ -913,45 +860,1025 @@ button.btn-light:hover {
   text-align: center;
 }
 
-/* ----------enquirymasterlist page---------------- */
+/* -------------Enquirymasterlist -------------- */
+.table-light {
+  width: 100%;
+}
 
-/* Full page grey background */
 .page-container {
-  background-color: #f5f5f5; /* Light grey background */
-  min-height: 100vh;
   padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
-/* Table container */
 .table-container {
-  background-color: #ffffff;
-  border-radius: 15px;
-  padding: 1.5rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-top: 1rem;
 }
 
-/* View button styling */
 .view-button {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid #ced4da;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #0d6efd;
+  transition: transform 0.2s;
+}
+
+.view-button:hover {
+  transform: scale(1.2);
+  color: #0a58ca;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Table inside modal */
+.modal-body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-body th,
+.modal-body td {
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.modal-body .btn-link {
+  font-size: 1.2rem;
+  color: #0d6efd;
+  background: none;
+  border: none;
+}
+
+.modal-body .btn-link:hover {
+  color: #0a58ca;
+  text-decoration: none;
+}
+.expand-section {
+  padding: 1rem;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  animation: slideDown 0.3s ease;
+}
+
+.no-border-table th,
+.no-border-table td {
+  border: none !important;
+}
+
+/* Grey and white alternate rows */
+.grey-row {
+  background-color: #f5f5f5;
+}
+
+.white-row {
   background-color: #ffffff;
+}
+.delete-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  border-radius: 50%;
+  background-color: white;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 0;
+  cursor: pointer;
+}
+.arrow-circle {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  background-color: transparent;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.view-button:hover {
-  background-color: #e9ecef;
+.arrow-icon {
+  font-size: 12px;
+}
+
+.arrow-circle:hover {
+  border-color: #666;
+  color: #333;
+}
+.custom-add-button {
+  background-color: #0056ff !important;
+  border-color: #0056ff !important;
+  color: #ffffff !important;
+  font-weight: 500;
+  border-radius: 8px; /* for smooth button corners */
+  padding: 4px 12px; /* optional: padding adjustment */
+}
+
+.custom-add-button:hover {
+  background-color: #0041cc !important; /* darker blue on hover */
+  border-color: #0041cc !important;
+  color: #ffffff !important;
+}
+.plus-icon {
+  color: #ffffff;
+  margin-right: 5px;
+}
+/* Make the container full width */
+.full-width-container {
+  width: 100%;
+}
+
+/* Make the table stretch nicely */
+.wide-table {
+  min-width: 1200px; /* 👈 Set according to your design */
+}
+
+/* Optional: Make table scroll horizontally on small screens */
+.wide-table-wrapper {
+  overflow-x: auto;
+}
+.season-form-layout {
+  padding: 10px 0;
+}
+
+.form-label-custom {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-control-custom {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 10px 14px;
+  font-size: 14px;
+  box-shadow: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  min-width: 200px;
+}
+
+.form-control-custom:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 114, 255, 0.2);
+}
+
+.save-button {
+  padding: 10px 25px;
+  border-radius: 10px;
+  background-color: #ccc;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: not-allowed;
+}
+
+.save-button.active {
+  background-color: #0072ff;
+  cursor: pointer;
+}
+
+.save-button.active:hover {
+  background-color: #005ecb;
+}
+
+.custom-save-button {
+  background-color: grey;
+  border: none;
+  padding: 6px 16px;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.custom-save-button.active {
+  background-color: #007bff; /* Bootstrap primary blue */
+}
+
+.custom-save-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 
 
+/* ------------Masterlistviewpage ----------- */
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.with-sidebar {
+  margin-left: 80px;
+}
+
+.full-width {
+  margin-left: 0;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+}
+
+.custom-table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+}
+
+.grey-row {
+  background-color: #f3f3f3;
+}
+
+.white-row {
+  background-color: #ffffff;
+}
+
+.next-icon {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----------- mastertitle page ------------ */
+
+.grey-row {
+  background-color: #f5f5f5;
+}
+
+.arrow-circle {
+  background: #eaeaea;
+  border-radius: 50%;
+  padding: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.arrow-circle:hover {
+  background: #d6d6d6;
+}
+
+.arrow-icon {
+  font-size: 12px;
+}
+/* Enforce white and grey alternating rows */
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f0f0f0 !important;
+}
+
+/* Optional: Customize hover separately if needed */
+.custom-table tbody tr:hover {
+  background-color: #e0e0e0 !important;
+}
+
+/* Bold headers and row content */
+.custom-table th,
+.custom-table td {
+  font-weight: bold;
+}
+
+/* ProductItemMasterList page  */
+
+/* Delete Success Modal */
+/* Ensure modal is centered */
+.delete-success-modal .modal-dialog {
+  margin: auto;
+  max-width: 400px;
+  width: 100%;
+}
+
+.delete-success-modal .modal-content {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+}
+
+.delete-success-modal .ok-btn {
+  background-color: #198754; /* Bootstrap success green */
+  border-color: #198754;
+  padding: 6px 24px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+/* edit successfull modal */
+.edit-success-modal {
+  display: flex !important; /* Force Bootstrap modal to be a flex container */
+  align-items: center; /* Vertical center */
+  justify-content: center; /* Horizontal center */
+}
+
+.edit-success-modal .modal-dialog {
+  margin: 0; /* Remove default margin */
+  max-width: 600px;
+}
+
+.edit-success-modal .modal-content {
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edit-success-modal .modal-body p {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.edit-success-modal span {
+  color: #198754; /* Bootstrap success green */
+  font-weight: bold;
+}
+
+.edit-success-modal .btn {
+  background-color: #198754;
+  border-color: #198754;
+  padding: 6px 24px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+/* ------------------ CostingMasterListView Page ------------- */
+/* edited successfully page */
+
+.highlighted-item {
+  color: #0052cc; /* Bright blue */
+  font-weight: 600;
+}
+
+/* Added Successfully popup */
+.success-modal .modal-content {
+  border-radius: 16px;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.ok-btn {
+  background-color: #0052cc;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.ok-btn:hover {
+  background-color: #003e99;
+}
+
+.highlighted-item {
+  color: #0052cc;
+  font-weight: 600;
+}
+/* Delete Success Modal Styling */
+/* Stronger selector */
+.delete-success-modal .ok-btn {
+  background-color: #007bff !important;
+  color: white !important;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 6px 30px;
+  border: none;
+  box-shadow: none;
+}
+
+.delete-success-modal .ok-btn:hover {
+  background-color: #0069d9 !important;
+}
 
 
 
+/* 
+deletion confirmation model */
+.custom-delete-modal .modal-content {
+  border-radius: 20px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.custom-delete-modal .btn-outline-danger {
+  border: 1px solid red;
+  color: red;
+  font-weight: 500;
+}
+
+.custom-delete-modal .btn-outline-danger:hover {
+  background-color: red;
+  color: white;
+}
 
 
+/* addnew trim model */
+.edit-trim-modal .modal-content {
+  border-radius: 20px;
+  padding: 25px 20px;
+}
 
+.edit-trim-modal .modal-header {
+  border-bottom: none;
+}
+
+.edit-trim-modal .modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.edit-trim-modal .form-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.blue-btn {
+  background-color: #007bff !important;
+  border: none !important;
+  border-radius: 12px;
+  font-weight: 500;
+  color: white !important;
+  transition: background-color 0.3s ease;
+}
+
+.blue-btn:hover {
+  background-color: #0069d9 !important;
+}
+
+/* edited successfully model */
+.success-modal .modal-content {
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.success-modal .modal-body p {
+  font-weight: 500;
+}
+
+.success-modal .highlighted-item {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.ok-btn {
+  background-color: #007bff !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 10px;
+  font-weight: 500;
+  padding: 8px 24px;
+  transition: background-color 0.3s ease;
+}
+
+.ok-btn:hover {
+  background-color: #0069d9 !important;
+}
+
+/* Editmodel page  */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.edit-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.checkbox-group label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.update-button {
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.update-button.active {
+  background-color: #0047ab;
+  cursor: pointer;
+}
+/* ----------------PermissionModal page------------------ */
+
+overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.permissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.permissions-list label {
+  font-size: 16px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.modal-buttons .cancel-button {
+  background-color: #db8e8e;
+  color: #0a0000;
+  border: 1px solid #140101;
+}
+
+.modal-buttons .update-button {
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.modal-buttons .update-button:hover {
+  background-color: #0056b3;
+}
+@media (max-width: 1024px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .permissions h3 {
+    font-size: 16px;
+  }
+
+  .permission-option label {
+    font-size: 14px;
+  }
+
+  .update-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .permissions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .permission-option label {
+    font-size: 13px;
+  }
+
+  .update-btn {
+    width: 100%;
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* -----------Rolespage--------------- */
+
+roles-container {
+  padding: 24px;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.roles-header {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #040539;
+}
+
+.roles-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.roles-table th {
+  background-color: #a5a5a7;
+  padding: 16px;
+  font-size: 15px;
+  text-align: left;
+  color: #010110;
+  font-weight: 600;
+}
+
+.roles-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #333;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.roles-table tr:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+.roles-table input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #007bff;
+  margin: 0;
+  cursor: not-allowed;
+}
+
+.roles-table button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roles-table button:hover {
+  background-color: #f0f0f0;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.permission-checkboxes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.permission-checkboxes label {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #222;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button {
+  border: 1px solid #842323;
+  background-color: white;
+  color: #111;
+}
+
+.cancel-button:hover {
+  background-color: #842323;
+}
+
+.update-button {
+  border: none;
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+}
+
+.update-button:hover {
+  background-color: #0064d3;
+}
+@media (max-width: 1024px) {
+  .roles-container {
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .roles-table th,
+  .roles-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .edit-button {
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+
+  .roles-header {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .roles-container {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .roles-table {
+    min-width: 700px;
+  }
+
+  .roles-header {
+    font-size:18px;
+    flex-direction:column;
+    align-items: flex-start;
+    gap:8px;
+  }
+
+  .roles-table th,
+  .roles-table td {
+    font-size:13px;
+    padding:8px 10px;
+  }
+
+  .edit-button {
+    font-size:12px;
+    padding:3px 8px;
+  }
+  
+}
+
+/* -------------Successpopup page ------------- */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.success-popup {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.role-name {
+  font-weight: bold;
+  color: #0072ff;
+}
+
+.ok-button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  border-radius: 10px;
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 1024px) {
+  .popup-content {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .popup-content p {
+    font-size: 16px;
+  }
+
+  .popup-content button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popup-content {
+    width: 90%;
+    padding: 16px;
+    font-size: 13px;
+  }
+
+  .popup-content p {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .popup-content button {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+  }
+}

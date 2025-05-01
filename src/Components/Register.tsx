@@ -181,7 +181,7 @@ const Register: React.FC = () => {
         </div>
 
         <div className="register-right">
-          <h2>Hello, Friend!</h2>
+          <h2>Hello</h2>
           <p>Join our textile workforce in a few clicks.</p>
           <Link to="/login">
             <Button variant="light" className="mt-3">

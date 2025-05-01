@@ -58,7 +58,7 @@ const ResetPassword = () => {
         <div className="reset-right">
           <h2>Hello, Again!</h2>
           <p>Please enter your new password to regain access.</p>
-          <a href="/signin" className="signin-btn">Sign In</a>
+          <a href="/login" className="signin-btn">Sign In</a>
         </div>
       </div>
     </div>

@@ -110,7 +110,7 @@ const Login: React.FC = () => {
         </div>
 
         <div className="login-right">
-          <h2>Hello, Users!</h2>
+          <h2>Hello</h2>
           <p>
             Sign in with your personal details to access all course features.
           </p>
