@@ -277,12 +277,26 @@ const ProductItemMasterList: React.FC = () => {
                   id="product-group-typeahead"
                   labelKey="group"
                   onChange={(selected) => {
-                    const value = selected[0] as string;
-                    setNewItem({ ...newItem, group: value });
+                    const selectedItem = selected[0];
+                    let group = "";
+
+                    if (typeof selectedItem === "string") {
+                      group = selectedItem;
+                    } else if (selectedItem?.group) {
+                      group = selectedItem.group;
+                    } else if (selectedItem?.customOption) {
+                      group = selectedItem.label;
+                    }
+
+                    setNewItem((prev) => ({ ...prev, group }));
                   }}
-                  options={productGroupSuggestions}
+                  options={productGroupSuggestions.map((group) => ({ group }))}
+                  allowNew
+                  newSelectionPrefix="Add a new group: "
+                  selected={newItem.group ? [{ group: newItem.group }] : []}
                   placeholder="Type or select a product group"
-                  selected={newItem.group ? [newItem.group] : []}
+                  renderMenuItemChildren={(option: any) => <>{option.group}</>}
+                  minLength={1}
                 />
               </Form.Group>
 
@@ -292,12 +306,26 @@ const ProductItemMasterList: React.FC = () => {
                   id="product-item-typeahead"
                   labelKey="name"
                   onChange={(selected) => {
-                    const value = selected[0] as string;
-                    setNewItem({ ...newItem, name: value });
+                    const selectedItem = selected[0];
+                    let name = "";
+
+                    if (typeof selectedItem === "string") {
+                      name = selectedItem;
+                    } else if (selectedItem?.name) {
+                      name = selectedItem.name;
+                    } else if (selectedItem?.customOption) {
+                      name = selectedItem.label;
+                    }
+
+                    setNewItem((prev) => ({ ...prev, name }));
                   }}
-                  options={productItemSuggestions}
+                  options={productItemSuggestions.map((name) => ({ name }))}
+                  allowNew
+                  newSelectionPrefix="Add a new item: "
+                  selected={newItem.name ? [{ name: newItem.name }] : []}
                   placeholder="Type or select a product item"
-                  selected={newItem.name ? [newItem.name] : []}
+                  renderMenuItemChildren={(option: any) => <>{option.name}</>}
+                  minLength={1}
                 />
               </Form.Group>
             </Form>
