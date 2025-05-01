@@ -128,6 +128,13 @@ const ProductItemMasterList: React.FC = () => {
     "Lounge Wear",
     "Party Wear",
     "Winter Wear",
+    "Outer Wear",
+    "Speciality Wear",
+    "Sleep Wear",
+    "Night Wear",
+    "Intimate Wear",
+    "Inner Wear",
+    "Active Wear"
   ];
 
   return (
