@@ -72,10 +72,7 @@ const AppRoutes: RouteObject[] = [
     path: "/costingmaster-list",
     element: <CostingMasterListView />,
   },
-  {
-    path: "/edit-modal",
-    element: <EditModal/>,
-  },
+  
 ];
 
 export default AppRoutes;
