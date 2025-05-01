@@ -3,6 +3,8 @@ import { Table, Button, Modal, Form } from "react-bootstrap";
 import { FaPlus, FaBars, FaArrowRight, FaTrashAlt } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import { v4 as uuidv4 } from "uuid";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
 interface ProductItem {
   id: string;
@@ -110,6 +112,24 @@ const ProductItemMasterList: React.FC = () => {
     }
   };
 
+  const productItemSuggestions = [
+    "Polo",
+    "Peekey",
+    "Crew Neck",
+    "Henley",
+    "Tank Top",
+  ];
+  const productGroupSuggestions = [
+    "Street Wear",
+    "Night Wear",
+    "Formal Wear",
+    "Ethnic Wear",
+    "Sports Wear",
+    "Lounge Wear",
+    "Party Wear",
+    "Winter Wear",
+  ];
+
   return (
     <div className="d-flex px-0 py-4">
       {showSidebar && <Sidebar />}
@@ -171,7 +191,7 @@ const ProductItemMasterList: React.FC = () => {
                         className="custom-add-button"
                         onClick={handleAddNew}
                       >
-                        <FaPlus className="me-1" /> Add New
+                        <FaPlus className="me-1" /> Add
                       </Button>
                     </div>
 
@@ -253,52 +273,32 @@ const ProductItemMasterList: React.FC = () => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Product Group</Form.Label>
-                <Form.Select
-                  value={newItem.group}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, group: e.target.value })
-                  }
-                >
-                  <option value="">Select</option>
-                  <option value="Street Wear">Street Wear</option>
-                  <option value="Night Wear">Night Wear</option>
-                  <option value="Formal Wear">Formal Wear</option>
-                  <option value="Ethnic Wear">Ethnic Wear</option>
-                  <option value="Sports Wear">Sports Wear</option>
-                  <option value="Lounge Wear">Lounge Wear</option>
-                  <option value="Party Wear">Party Wear</option>
-                  <option value="Winter Wear">Winter Wear</option>
-                </Form.Select>
+                <Typeahead
+                  id="product-group-typeahead"
+                  labelKey="group"
+                  onChange={(selected) => {
+                    const value = selected[0] as string;
+                    setNewItem({ ...newItem, group: value });
+                  }}
+                  options={productGroupSuggestions}
+                  placeholder="Type or select a product group"
+                  selected={newItem.group ? [newItem.group] : []}
+                />
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>Product Item</Form.Label>
-                <Form.Select
-                  value={newItem.name}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, name: e.target.value })
-                  }
-                >
-                  <option value="">Select Product Item</option>
-                  <option value="Polo">Polo</option>
-                  <option value="Peekey">Peekey</option>
-                  <option value="Hoodie">Hoodie</option>
-                  <option value="Joggers">Joggers</option>
-                  <option value="Mock Neck">Mock Neck</option>
-                  <option value="Sweater Vest">Sweater Vest</option>
-                  <option value="Raglan">Raglan</option>
-                  <option value="Crew Neck">Crew Neck</option>
-                  <option value="Cossack">Cossack</option>
-                  <option value="Sailor">Sailor</option>
-                  <option value="T-Shirt">T-Shirt</option>
-                  <option value="V-Neck">V-Neck</option>
-                  <option value="Dinner Suit">Dinner Suit</option>
-                  <option value="Sleep suit">Sleep suit</option>
-                  <option value="Pyjama">Pyjama</option>
-                  <option value="Trousers">Trousers</option>
-                  <option value="Blazers">Blazers</option>
-                  <option value="Sweat Shirts">Sweat Shirts</option>
-                </Form.Select>
+                <Typeahead
+                  id="product-item-typeahead"
+                  labelKey="name"
+                  onChange={(selected) => {
+                    const value = selected[0] as string;
+                    setNewItem({ ...newItem, name: value });
+                  }}
+                  options={productItemSuggestions}
+                  placeholder="Type or select a product item"
+                  selected={newItem.name ? [newItem.name] : []}
+                />
               </Form.Group>
             </Form>
           </Modal.Body>

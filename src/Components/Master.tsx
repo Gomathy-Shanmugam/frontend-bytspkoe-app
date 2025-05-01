@@ -27,7 +27,7 @@ const Master: React.FC = () => {
       name: "CRM",
       createdOn: "12/04/2025",
       createdBy: "User2",
-      status: "Active",
+      status: "Inactive",
     },
   ];
 

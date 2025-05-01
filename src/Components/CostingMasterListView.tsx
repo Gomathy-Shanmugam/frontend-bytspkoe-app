@@ -191,7 +191,7 @@ const CostingMasterListView: React.FC = () => {
                         className="custom-add-button"
                         onClick={() => setShowAddModal(true)}
                       >
-                        <FaPlus className="me-1" /> Add New
+                        <FaPlus className="me-1" /> Add 
                       </Button>
                     </div>
 

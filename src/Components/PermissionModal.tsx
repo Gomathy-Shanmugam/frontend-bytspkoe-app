@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './Crud.css'
 
 interface PermissionsModalProps {
   initialPermissions: string[];

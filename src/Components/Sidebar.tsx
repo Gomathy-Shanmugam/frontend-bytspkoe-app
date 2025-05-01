@@ -3,13 +3,14 @@ import {
   FaTachometerAlt,
   FaClipboardList,
   FaDollarSign,
-  FaVials,
   FaProjectDiagram,
   FaTruck,
   FaCogs,
   FaBolt,
   FaUsersCog,
   FaBoxes,
+  FaLayerGroup,
+  
 } from "react-icons/fa";
 
 interface User {
@@ -21,7 +22,7 @@ const topItems = [
   { icon: <FaTachometerAlt />, label: "Dashboard" },
   { icon: <FaClipboardList />, label: "Enquiry" },
   { icon: <FaDollarSign />, label: "Costing" },
-  { icon: <FaVials />, label: "Sampling" },
+  { icon: <FaLayerGroup />, label: "Sampling" },
   { icon: <FaProjectDiagram />, label: "Planning" },
   { icon: <FaTruck />, label: "Shipping" },
 ];

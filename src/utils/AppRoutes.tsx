@@ -74,7 +74,7 @@ const AppRoutes: RouteObject[] = [
   },
   {
     path: "/edit-modal",
-    element: <EditModal />,
+    element: <EditModal/>,
   },
 ];
 

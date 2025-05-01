@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RolesPage.css';
 import PermissionsModal from './PermissionModal';
 import SuccessPopup from './SuccessPopup';
+import './Crud.css'
 
 interface Role {
   id: number;

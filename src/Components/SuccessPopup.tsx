@@ -1,5 +1,6 @@
 import React from 'react';
 import './SuccessPopup.css';
+import './Crud.css'
 
 interface SuccessPopupProps {
   role: string;

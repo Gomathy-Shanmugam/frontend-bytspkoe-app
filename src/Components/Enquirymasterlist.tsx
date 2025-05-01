@@ -18,13 +18,14 @@ const EnquiryMasterList: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [editSeason, setEditSeason] = useState<SeasonDetail | null>(null);
-
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showAddSuccessModal, setShowAddSuccessModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showEditSuccessModal, setShowEditSuccessModal] = useState(false);
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showDeleteSuccessModal, setShowDeleteSuccessModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<SeasonDetail | null>(null);
+  const [addedSeasonName, setAddedSeasonName] = useState("");
+  const [deletedSeasonName, setDeletedSeasonName] = useState("");
 
   const [seasonDetails, setSeasonDetails] = useState<SeasonDetail[]>([
     {
@@ -81,8 +82,10 @@ const EnquiryMasterList: React.FC = () => {
     setSeasonDetails([...seasonDetails, newEntry]);
 
     setNewSeason({ name: "", status: "Active" });
+    setAddedSeasonName(newSeason.name);
     setShowAddModal(false);
-    setShowSuccessModal(true);
+    setShowAddSuccessModal(true); // ✅ Correct state to show success popup
+    setNewSeason({ name: "", status: "Active" });
   };
 
   const handleEditClick = (season: SeasonDetail) => {
@@ -115,9 +118,15 @@ const EnquiryMasterList: React.FC = () => {
 
   const confirmDelete = () => {
     if (itemToDelete) {
+      // ✅ Set the deleted item's name
+      setDeletedSeasonName(itemToDelete.name);
+
+      // ✅ Remove the item from the list
       setSeasonDetails((prev) =>
         prev.filter((season) => season.id !== itemToDelete.id)
       );
+
+      // ✅ Reset the state
       setItemToDelete(null);
       setShowDeleteConfirmModal(false);
       setShowDeleteSuccessModal(true);
@@ -184,7 +193,7 @@ const EnquiryMasterList: React.FC = () => {
                           size="sm"
                           onClick={handleAddNew}
                         >
-                          <FaPlus className="plus-icon" /> Add New
+                          <FaPlus className="plus-icon" /> Add 
                         </Button>
                       </div>
 
@@ -259,7 +268,7 @@ const EnquiryMasterList: React.FC = () => {
                           </Button>
                         </Modal.Body>
                       </Modal>
-
+                      {/* Deletion model */}
                       <Modal
                         className="custom-delete-modal"
                         show={showDeleteConfirmModal}
@@ -299,8 +308,12 @@ const EnquiryMasterList: React.FC = () => {
                         centered
                       >
                         <Modal.Body className="text-center p-4">
-                          <p className="fw-semibold mb-3 text-success">
-                            Successfully Deleted
+                          <p className="fw-semibold mb-3 ">
+                            Successfully Deleted:{" "}
+                            <span className="text-success fw-bold">
+                            <strong>{deletedSeasonName}</strong>
+                            </span>
+                            
                           </p>
                           <Button
                             className="ok-btn"
@@ -423,6 +436,31 @@ const EnquiryMasterList: React.FC = () => {
                 </div>
               </Form>
             )}
+          </Modal.Body>
+        </Modal>
+
+        {/* Added Successfully popup */}
+        <Modal
+          show={showAddSuccessModal}
+          onHide={() => setShowAddSuccessModal(false)}
+          centered
+          backdrop="static"
+          dialogClassName="success-modal"
+        >
+          <Modal.Body className="text-center p-4">
+            <p className="fs-5 mb-4">
+              Successfully Added:&nbsp;
+              <span className="text-success fw-bold">
+              <strong>{addedSeasonName}</strong>
+              </span>
+              
+            </p>
+            <Button
+              className="ok-btn"
+              onClick={() => setShowAddSuccessModal(false)}
+            >
+              OK
+            </Button>
           </Modal.Body>
         </Modal>
       </div>

@@ -1,0 +1,449 @@
+/* Editmodel page  */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .edit-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 400px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .checkbox-group label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .update-button {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-button.active {
+    background-color: #0047ab;
+    cursor: pointer;
+  }
+  /* ----------------PermissionModal page------------------ */
+  
+  overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    max-width: 90%;
+    text-align: center;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .permissions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+  
+  .permissions-list label {
+    font-size: 16px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .modal-buttons button {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .modal-buttons .cancel-button {
+    background-color: #db8e8e;
+    color: #0a0000;
+    border: 1px solid #140101;
+  }
+  
+  .modal-buttons .update-button {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+  
+  .modal-buttons .update-button:hover {
+    background-color: #0056b3;
+  }
+  @media (max-width: 1024px) {
+    .modal-content {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .permissions h3 {
+      font-size: 16px;
+    }
+  
+    .permission-option label {
+      font-size: 14px;
+    }
+  
+    .update-btn {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      padding: 16px;
+    }
+  
+    .permissions {
+      flex-direction: column;
+      gap: 12px;
+    }
+  
+    .permission-option label {
+      font-size: 13px;
+    }
+  
+    .update-btn {
+      width: 100%;
+      font-size: 13px;
+      padding: 10px;
+    }
+  }
+  
+  /* -----------Rolespage--------------- */
+  
+  roles-container {
+    padding: 24px;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .roles-header {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #040539;
+  }
+  
+  .roles-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .roles-table th {
+    background-color: #a5a5a7;
+    padding: 16px;
+    font-size: 15px;
+    text-align: left;
+    color: #010110;
+    font-weight: 600;
+  }
+  
+  .roles-table td {
+    padding: 16px;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  
+  .roles-table tr:nth-child(even) {
+    background-color: #fcfcfc;
+  }
+  
+  .roles-table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #007bff;
+    margin: 0;
+    cursor: not-allowed;
+  }
+  
+  .roles-table button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .roles-table button:hover {
+    background-color: #f0f0f0;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #111;
+  }
+  
+  .permission-checkboxes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .permission-checkboxes label {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #222;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .modal-buttons button {
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cancel-button {
+    border: 1px solid #842323;
+    background-color: white;
+    color: #111;
+  }
+  
+  .cancel-button:hover {
+    background-color: #842323;
+  }
+  
+  .update-button {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+  }
+  
+  .update-button:hover {
+    background-color: #0064d3;
+  }
+  @media (max-width: 1024px) {
+    .roles-container {
+      padding: 20px;
+      overflow-x: auto;
+    }
+  
+    .roles-table th,
+    .roles-table td {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  
+    .edit-button {
+      padding: 4px 10px;
+      font-size: 13px;
+    }
+  
+    .roles-header {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .roles-container {
+      padding: 16px;
+      overflow-x: auto;
+    }
+  
+    .roles-table {
+      min-width: 700px;
+    }
+  
+    .roles-header {
+      font-size:18px;
+      flex-direction:column;
+      align-items: flex-start;
+      gap:8px;
+    }
+  
+    .roles-table th,
+    .roles-table td {
+      font-size:13px;
+      padding:8px 10px;
+    }
+  
+    .edit-button {
+      font-size:12px;
+      padding:3px 8px;
+    }
+    
+  }
+  
+  /* -------------Successpopup page ------------- */
+  .success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .success-popup {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .role-name {
+    font-weight: bold;
+    color: #0072ff;
+  }
+  
+  .ok-button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 1024px) {
+    .popup-content {
+      padding: 20px;
+      font-size: 14px;
+    }
+  
+    .popup-content p {
+      font-size: 16px;
+    }
+  
+    .popup-content button {
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .popup-content {
+      width: 90%;
+      padding: 16px;
+      font-size: 13px;
+    }
+  
+    .popup-content p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+  
+    .popup-content button {
+      width: 100%;
+      padding: 10px;
+      font-size: 13px;
+    }
+  }
