@@ -1,6 +1,5 @@
-import React from 'react';
-import './SuccessPopup.css';
-import './Crud.css'
+import React from "react";
+import "../Crud.css";
 
 interface SuccessPopupProps {
   role: string;
@@ -12,13 +11,16 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ role, onClose }) => {
     <div className="success-overlay">
       <div className="success-popup">
         <p>
-          Sucessfully Updated Responsibilities<br />
-          for : <span className="role-name">{role}</span>
+          Sucessfully Updated Responsibilities
+          <br />
+          for : <span className="text-success role-name">{role}</span>
         </p>
-        <button className="ok-button" onClick={onClose}>OK</button>
+        <button className="ok-button" onClick={onClose}>
+          OK
+        </button>
       </div>
     </div>
   );
 };
 
-export default SuccessPopup;
+export default SuccessPopup;

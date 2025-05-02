@@ -112,7 +112,7 @@ const Login: React.FC = () => {
         <div className="login-right">
           <h2>Hello</h2>
           <p>
-            Sign in with your personal details to access all course features.
+            Sign in with your personal details to access all features.
           </p>
           <Link to="/register">
             <button className="login-button-outline">Sign Up</button>

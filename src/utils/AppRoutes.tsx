@@ -13,6 +13,9 @@ import ProductItemMasterList from "../Components/ProductItemMasterList";
 import CostingTitle from "../Components/CostingTitle";
 import CostingMasterListView from "../Components/CostingMasterListView";
 import EditModal from "../Components/EditModel";
+import RolesPage from "../Components/RolesPage";
+import PermissionsModal from "../Components/PermissionModal";
+import SuccessPopup from "../Components/SuccessPopup";
 
 const AppRoutes: RouteObject[] = [
   {
@@ -72,6 +75,33 @@ const AppRoutes: RouteObject[] = [
     path: "/costingmaster-list",
     element: <CostingMasterListView />,
   },
+  {
+    path: "/roles-page",
+    element: <RolesPage />,
+  },
+  {
+    path: "/permission-modal",
+    element: <PermissionsModal initialPermissions={[]} onClose={function (): void {
+      throw new Error("Function not implemented.");
+    } } onSave={function (): void {
+      throw new Error("Function not implemented.");
+    } }/>,
+  },
+  {
+    path: "/success-popup",
+    element: <SuccessPopup role={""} onClose={function (): void {
+      throw new Error("Function not implemented.");
+    } }/>,
+  },
+  {
+    path: "/edit-modal",
+    element: <EditModal permissions={[]} onClose={function (): void {
+      throw new Error("Function not implemented.");
+    } } onSave={function (): void {
+      throw new Error("Function not implemented.");
+    } }/>,
+  },
+
   
 ];
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"; 
+import "../Crud.css"
 
 interface EditModalProps {
   permissions: string[];

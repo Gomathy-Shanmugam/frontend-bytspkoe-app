@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 .login-container {
   display: flex;
@@ -18,7 +17,10 @@
 .login-card {
   display: flex;
   width: 850px;
-  border-radius: 20px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
@@ -38,8 +40,9 @@
   justify-content: center;
   align-items: center;
   padding: 40px;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
+  /* REMOVE radius here */
+  /* border-top-right-radius: 100px;
+     border-bottom-right-radius: 100px; */
 }
 
 .login-right h2 {
@@ -120,6 +123,55 @@
   z-index: 10;
 }
 
+/* login page responsiveness */
+@media (max-width: 991px) {
+  .login-card {
+    flex-direction: column;
+    width: 90%;
+    border-radius: 20px;
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+    border-radius: 0 !important;
+    padding: 30px 20px;
+  }
+
+  .login-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 20px;
+  }
+
+  .login-left {
+    border-top-right-radius: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .signin-title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .login-button-primary,
+  .login-button-outline {
+    width: 100%;
+    text-align: center;
+  }
+
+  .top-left-logo {
+    width: 150px;
+    left: 10px;
+    top: 10px;
+  }
+
+  .login-container {
+    padding: 20px 0;
+  }
+}
+
+
 /* ................................. */
 
 /* Register page */
@@ -175,7 +227,7 @@
   color: #007bff;
 }
 
-------------forgotpassword--------
+/* ------------forgotpassword-------- */
 
 /* index.css */
 .auth-container {

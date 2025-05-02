@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Crud.css'
+import React, { useState } from "react";
+import "../Crud.css";
 
 interface PermissionsModalProps {
   initialPermissions: string[];
@@ -12,7 +12,9 @@ const PermissionsModal: React.FC<PermissionsModalProps> = ({
   onClose,
   onSave,
 }) => {
-  const [permissions, setPermissions] = useState<string[]>(initialPermissions);
+  const [permissions, setPermissions] = useState<string[]>(
+    initialPermissions || []
+  );
 
   const handleCheckboxChange = (permission: string) => {
     if (permissions.includes(permission)) {
@@ -34,40 +36,44 @@ const PermissionsModal: React.FC<PermissionsModalProps> = ({
           <label>
             <input
               type="checkbox"
-              checked={permissions.includes('Create')}
-              onChange={() => handleCheckboxChange('Create')}
-            />
-            {' '}Create
+              checked={permissions.includes("Create")}
+              onChange={() => handleCheckboxChange("Create")}
+            />{" "}
+            Create
           </label>
           <label>
             <input
               type="checkbox"
-              checked={permissions.includes('View')}
-              onChange={() => handleCheckboxChange('View')}
-            />
-            {' '}View
+              checked={permissions.includes("View")}
+              onChange={() => handleCheckboxChange("View")}
+            />{" "}
+            View
           </label>
           <label>
             <input
               type="checkbox"
-              checked={permissions.includes('Update')}
-              onChange={() => handleCheckboxChange('Update')}
-            />
-            {' '}Update
+              checked={permissions.includes("Update")}
+              onChange={() => handleCheckboxChange("Update")}
+            />{" "}
+            Update
           </label>
           <label>
             <input
               type="checkbox"
-              checked={permissions.includes('Delete')}
-              onChange={() => handleCheckboxChange('Delete')}
-            />
-            {' '}Delete
+              checked={permissions.includes("Delete")}
+              onChange={() => handleCheckboxChange("Delete")}
+            />{" "}
+            Delete
           </label>
         </div>
 
         <div className="modal-buttons">
-          <button className="cancel-button" onClick={onClose}>Cancel</button>
-          <button className="update-button" onClick={handleSaveClick}>Update</button>
+          <button className="cancel-button" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="update-button" onClick={handleSaveClick}>
+            Update
+          </button>
         </div>
       </div>
     </div>
