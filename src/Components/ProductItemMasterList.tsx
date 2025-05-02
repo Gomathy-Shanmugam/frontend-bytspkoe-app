@@ -118,6 +118,32 @@ const ProductItemMasterList: React.FC = () => {
     "Crew Neck",
     "Henley",
     "Tank Top",
+    "Round Neck T",
+    "Mock Neck",
+    "Raglan",
+    "T-shirt Full Sleeves",
+    "T-Shift Half Sleeves",
+    "Blazer",
+    "V -Neck Sleeveless",
+    "V-Neck Half Sleeves",
+    "V-Neck Full Sleeves",
+    "Sweater Vest",
+    "Vest",
+    "Boxer Shorts",
+    "Wrap",
+    "Bermuda ",
+    "Cargo Pants",
+    "Lounge Pants",
+    "Dinner Suit",
+    "Bomber Jackets",
+    "Jumper",
+    "Tactical Jacket",
+    "Caps",
+    "Mittens",
+    "Booties",
+    "Long Sleeved Body Suit",
+    "Swim short",
+    "Jockstraps",
   ];
   const productGroupSuggestions = [
     "Street Wear",
@@ -134,7 +160,8 @@ const ProductItemMasterList: React.FC = () => {
     "Night Wear",
     "Intimate Wear",
     "Inner Wear",
-    "Active Wear"
+    "Active Wear",
+    "Intimate Wear",
   ];
 
   return (
@@ -154,15 +181,15 @@ const ProductItemMasterList: React.FC = () => {
           />
         </div>
 
-        <h4 className="fw-bold mb-3">Product Item Master - list view</h4>
+        <h4 className="fw-bold mb-3">Product Item Master </h4>
 
         <Table hover className="no-border-table">
           <thead className="table-light">
             <tr>
               <th>S.No</th>
               <th>Name</th>
-              <th>CREATED ON</th>
-              <th>CREATED BY</th>
+              <th>Created On</th>
+              <th>Created By</th>
               <th>Status</th>
               <th>View</th>
             </tr>
@@ -208,8 +235,8 @@ const ProductItemMasterList: React.FC = () => {
                           <th>S.No</th>
                           <th>Name</th>
                           <th>Product Group</th>
-                          <th>CREATED ON</th>
-                          <th>CREATED BY</th>
+                          <th>Created On</th>
+                          <th>Created By</th>
                           <th>Status</th>
                           <th>Edit</th>
                         </tr>
@@ -280,31 +307,19 @@ const ProductItemMasterList: React.FC = () => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Product Group</Form.Label>
-                <Typeahead
-                  id="product-group-typeahead"
-                  labelKey="group"
-                  onChange={(selected) => {
-                    const selectedItem = selected[0];
-                    let group = "";
-
-                    if (typeof selectedItem === "string") {
-                      group = selectedItem;
-                    } else if (selectedItem?.group) {
-                      group = selectedItem.group;
-                    } else if (selectedItem?.customOption) {
-                      group = selectedItem.label;
-                    }
-
-                    setNewItem((prev) => ({ ...prev, group }));
-                  }}
-                  options={productGroupSuggestions.map((group) => ({ group }))}
-                  allowNew
-                  newSelectionPrefix="Add a new group: "
-                  selected={newItem.group ? [{ group: newItem.group }] : []}
-                  placeholder="Type or select a product group"
-                  renderMenuItemChildren={(option: any) => <>{option.group}</>}
-                  minLength={1}
-                />
+                <Form.Select
+                  value={newItem.group}
+                  onChange={(e) =>
+                    setNewItem((prev) => ({ ...prev, group: e.target.value }))
+                  }
+                >
+                  <option value="">Select a product group</option>
+                  {productGroupSuggestions.map((group) => (
+                    <option key={group} value={group}>
+                      {group}
+                    </option>
+                  ))}
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -464,7 +479,7 @@ const ProductItemMasterList: React.FC = () => {
           <Modal.Body className="text-center p-4 rounded-4 shadow">
             <p className="fw-semibold mb-4">
               Successfully Deleted :{" "}
-              <span className="text-primary fw-bold">{deletedItemName}</span>
+              <span className="text-success fw-bold">{deletedItemName}</span>
             </p>
             <Button
               onClick={() => setShowDeleteSuccessModal(false)}

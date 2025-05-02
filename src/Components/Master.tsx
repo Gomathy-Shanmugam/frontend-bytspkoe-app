@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaBell, FaCommentDots, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaArrowRight } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 
 const Master: React.FC = () => {
@@ -56,17 +56,12 @@ const Master: React.FC = () => {
         </div>
      
           
-          <div className="top-icons">
-            <FaBell className="top-icon" />
-            <FaCommentDots className="top-icon" />
-            <FaUserCircle className="top-icon" />
-          </div>
         
 
         <div className="main-area">
           <h2 className="master-title"> List View</h2>
 
-          <table className="master-table">
+          <table className="table table-striped master-table">
             <thead>
               <tr>
                 <th>S.No</th>
@@ -89,10 +84,11 @@ const Master: React.FC = () => {
                   <td>{p.status}</td>
                   <td>
                     <span
+                    className="arrow-circle"
                       style={{ cursor: "pointer" }}
                       onClick={() => handleNextClick(p.name)}
                     >
-                      ➡️
+                      <FaArrowRight  className="arrow-icon"/>
                     </span>
                   </td>
                 </tr>

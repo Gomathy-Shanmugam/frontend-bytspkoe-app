@@ -148,7 +148,7 @@ const EnquiryMasterList: React.FC = () => {
             style={{ cursor: "pointer" }}
           />
         </div>
-        <h4 className="mb-4 fw-bold">Season’s Master - List View</h4>
+        <h4 className="mb-4 fw-bold">Season’s Master </h4>
 
         <Table hover responsive className="no-border-table">
           <thead className="table-light mt-4 w-100">
@@ -197,7 +197,7 @@ const EnquiryMasterList: React.FC = () => {
                         </Button>
                       </div>
 
-                      <Table hover responsive className="no-border-table mb-0">
+                      <Table hover responsive className=" no-border-table mb-0 ">
                         <thead className="table-light">
                           <tr>
                             <th>S.No</th>
@@ -311,7 +311,7 @@ const EnquiryMasterList: React.FC = () => {
                           <p className="fw-semibold mb-3 ">
                             Successfully Deleted:{" "}
                             <span className="text-success fw-bold">
-                            <strong>{deletedSeasonName}</strong>
+                            {deletedSeasonName}
                             </span>
                             
                           </p>
@@ -451,7 +451,7 @@ const EnquiryMasterList: React.FC = () => {
             <p className="fs-5 mb-4">
               Successfully Added:&nbsp;
               <span className="text-success fw-bold">
-              <strong>{addedSeasonName}</strong>
+              {addedSeasonName}
               </span>
               
             </p>

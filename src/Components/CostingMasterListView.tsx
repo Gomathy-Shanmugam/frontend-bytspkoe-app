@@ -128,7 +128,7 @@ const CostingMasterListView: React.FC = () => {
     if (itemToDelete) {
       const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
       setItems(updatedItems);
-      setItemToDelete(null);
+
       setShowDeleteConfirmModal(false);
       setShowDeleteSuccessModal(true);
     }
@@ -151,15 +151,15 @@ const CostingMasterListView: React.FC = () => {
           />
         </div>
 
-        <h4 className="fw-bold mb-3">Costing Master – list view</h4>
+        <h4 className="fw-bold mb-3">Costing Master</h4>
 
         <Table hover className="no-border-table">
           <thead className="table-light">
             <tr>
               <th>S.No</th>
               <th>Name</th>
-              <th>CREATED ON</th>
-              <th>CREATED BY</th>
+              <th>Created On</th>
+              <th>Created By</th>
               <th>Status</th>
               <th>View</th>
             </tr>
@@ -172,7 +172,11 @@ const CostingMasterListView: React.FC = () => {
               <td>Admin</td>
               <td>Active</td>
               <td>
-                <div onClick={toggleExpand} style={{ cursor: "pointer" }}>
+                <div
+                  className="arrow-circle"
+                  onClick={toggleExpand}
+                  style={{ cursor: "pointer" }}
+                >
                   <FaArrowRight />
                 </div>
               </td>
@@ -191,7 +195,7 @@ const CostingMasterListView: React.FC = () => {
                         className="custom-add-button"
                         onClick={() => setShowAddModal(true)}
                       >
-                        <FaPlus className="me-1" /> Add 
+                        <FaPlus className="me-1" /> Add
                       </Button>
                     </div>
 
@@ -206,7 +210,6 @@ const CostingMasterListView: React.FC = () => {
                           <th>CREATED BY</th>
                           <th>Status</th>
                           <th>Edit</th>
-                          
                         </tr>
                       </thead>
                       <tbody>
@@ -339,7 +342,7 @@ const CostingMasterListView: React.FC = () => {
           <Modal.Body className="text-center p-4">
             <p className="fs-5 mb-4">
               Successfully Added:{" "}
-              <span className="highlighted-item">{addedTrimName}</span>
+              <span className="text-success fw-bold">{addedTrimName}</span>
             </p>
             <Button
               className="ok-btn"
@@ -444,7 +447,7 @@ const CostingMasterListView: React.FC = () => {
           <Modal.Body className="text-center p-4">
             <p className="fs-5 mb-4">
               Sucessfully Updated:{" "}
-              <span className="highlighted-item">{editedItemName}</span>
+              <span className="text-success fw-bold">{editedItemName}</span>
             </p>
             <Button
               className="ok-btn px-4"
@@ -499,13 +502,16 @@ const CostingMasterListView: React.FC = () => {
           <Modal.Body className="text-center p-4">
             <p className="fs-5 mb-4">
               Sucessfully Deleted :{" "}
-              <span className="text-primary fw-semibold">
+              <span className="text-success fw-bold">
                 {itemToDelete?.material}
               </span>
             </p>
             <Button
               className="ok-btn px-5"
-              onClick={() => setShowDeleteSuccessModal(false)}
+              onClick={() => {
+                setShowDeleteSuccessModal(false);
+                setItemToDelete(null); // ✅ Clear it only after user sees the message
+              }}
             >
               OK
             </Button>

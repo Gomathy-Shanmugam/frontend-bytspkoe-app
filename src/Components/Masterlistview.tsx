@@ -100,16 +100,16 @@ const Masterlistview: React.FC = () => {
             onClick={() => setShowSidebar(!showSidebar)}
           />
         </div>
-        <h2 className="page-title">Master List</h2>
+        <h2 className="page-title mb-3">Master List</h2>
         <table className="custom-table">
           <thead>
             <tr>
               <th>S.No</th>
               <th>System Section</th>
-              <th>CREATED ON</th>
-              <th>CREATED BY</th>
+              <th>Created On</th>
+              <th>Created By</th>
               <th>Status</th>
-              <th>NEXT</th>
+              <th>Next</th>
             </tr>
           </thead>
           <tbody>

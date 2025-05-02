@@ -729,6 +729,7 @@ button.btn-light:hover {
 }
 
 /* ------------Masters page ----------------- */
+
 .master-wrapper {
   display: flex;
   min-height: 100vh;
@@ -784,6 +785,10 @@ button.btn-light:hover {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+}
+.master-table th {
+  background-color: #245297 !important;
+  color: white; /* Optional: for better contrast */
 }
 
 .master-table th,
@@ -1024,7 +1029,8 @@ button.btn-light:hover {
   color: #ffffff !important;
   font-weight: 500;
   border-radius: 8px; /* for smooth button corners */
-  padding: 4px 12px; /* optional: padding adjustment */
+  padding: 4px 12px;
+  margin-bottom: 10px !important; /* optional: padding adjustment */
 }
 
 .custom-add-button:hover {
@@ -1115,7 +1121,7 @@ button.btn-light:hover {
   opacity: 0.6;
 }
 .custom-season-modal {
-  max-width: 500px;  /* 👈 Set desired width */
+  max-width: 500px; /* 👈 Set desired width */
   margin: auto;
 }
 
@@ -1123,11 +1129,8 @@ button.btn-light:hover {
   padding: 1rem;
   border-radius: 12px;
   max-height: 400px; /* 👈 Set desired height */
-  overflow-y: auto;  /* Optional: scroll if content exceeds */
+  overflow-y: auto; /* Optional: scroll if content exceeds */
 }
-
-
-
 
 /* ------------Masterlistviewpage ----------- */
 .layout {
@@ -1181,8 +1184,10 @@ button.btn-light:hover {
 }
 
 .custom-table th {
-  background-color: #f9f9f9;
-  font-weight: 600;
+  background-color: #245297 !important;
+  color: white !important;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .grey-row {
@@ -1246,7 +1251,7 @@ button.btn-light:hover {
   font-weight: bold;
 }
 
-/* ProductItemMasterList page  */
+/* -----------ProductItemMasterList page---------------------  */
 
 /* Delete Success Modal */
 /* Ensure modal is centered */
@@ -1360,8 +1365,6 @@ button.btn-light:hover {
   background-color: #0069d9 !important;
 }
 
-
-
 /* 
 deletion confirmation model */
 .custom-delete-modal .modal-content {
@@ -1379,7 +1382,6 @@ deletion confirmation model */
   background-color: red;
   color: white;
 }
-
 
 /* addnew trim model */
 .edit-trim-modal .modal-content {
@@ -1445,3 +1447,19 @@ deletion confirmation model */
   background-color: #0069d9 !important;
 }
 
+/* ------------------Enquirylistview page -------------------- */
+.table-light {
+  width: 100%;
+  table-layout: fixed; /* Ensures consistent column widths */
+  border-collapse: collapse;
+}
+
+.table-light th {
+  background-color: #245297 !important;
+  color: white !important;
+  padding: 12px;
+  text-align: left;
+  width: auto; /* Default, can be changed */
+  white-space: nowrap; /* Prevents text wrapping */
+  border: 1px solid #ddd;
+}
