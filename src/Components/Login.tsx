@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AxiosService from "../utils/AxiosService";
 import toast from "react-hot-toast";
 import logo from "../assets/Byspoke-logo.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface LoginFormData {
   email: string;
@@ -18,6 +19,7 @@ interface ValidationErrors {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState<ValidationErrors>({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = (formData: LoginFormData): ValidationErrors => {
     const newErrors: ValidationErrors = {};
@@ -52,16 +54,14 @@ const Login: React.FC = () => {
 
     try {
       const response = await AxiosService.post("/auth/login", formProps);
-      console.log(response); 
-      if (response.status === 200 || response.status === 201){
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
         toast.success(response.data.message);
-        localStorage.setItem("access_token", response.data.access_token); // Store the token
-        navigate("/master");
-      }else {
+        navigate("/enquiry");
+      } else {
         toast.error(response.data.message);
       }
     } catch (error: any) {
-        console.error(error); 
       toast.error(error?.response?.data?.message || "Login failed");
     }
   };
@@ -87,13 +87,29 @@ const Login: React.FC = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-                isInvalid={!!errors.password}
-              />
+            <Form.Group className="mb-3 position-relative" controlId="formBasicPassword">
+              <div style={{ position: "relative" }}>
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  isInvalid={!!errors.password}
+                  style={{ paddingRight: "40px" }}
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "10px",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#000",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
               <Form.Control.Feedback type="invalid">
                 {errors.password}
               </Form.Control.Feedback>
@@ -110,9 +126,9 @@ const Login: React.FC = () => {
         </div>
 
         <div className="login-right">
-          <h2>Hello</h2>
+          <h2>Hello, Users!</h2>
           <p>
-            Sign in with your personal details to access all features.
+            Sign in with your personal details to access all course features.
           </p>
           <Link to="/register">
             <button className="login-button-outline">Sign Up</button>

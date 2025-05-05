@@ -16,6 +16,7 @@ import EditModal from "../Components/EditModel";
 import RolesPage from "../Components/RolesPage";
 import PermissionsModal from "../Components/PermissionModal";
 import SuccessPopup from "../Components/SuccessPopup";
+import Enquiry from "../Components/Enquiry";
 
 const AppRoutes: RouteObject[] = [
   {
@@ -38,6 +39,10 @@ const AppRoutes: RouteObject[] = [
   {
     path: "/forgot-password",
     element: <Forgotpassword />,
+  },
+  {
+    path: "/enquiry",
+    element: <Enquiry/>,
   },
   {
     path: "/verifyotp",

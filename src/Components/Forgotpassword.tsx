@@ -3,6 +3,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "../index.css";
 import logo from "../assets/Byspoke-logo.png";
+// import logo from '../assests/Byspoke-logo.png'
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword: React.FC = () => {
@@ -21,7 +22,7 @@ const ForgotPassword: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/reset-password",
+        "http://localhost:5000/auth/forgot-password",
         { email }
       );
       setMessage(response.data.message || "Reset link sent!");
@@ -33,6 +34,9 @@ const ForgotPassword: React.FC = () => {
       setLoading(false);
     }
   };
+
+  // When OTP is sent successfully
+localStorage.setItem("otpEmail", email); // store it for use in verify
 
   const handleVerifyOtp = () => {
     // Redirect to VerifyOtp component with optional email as state
@@ -102,4 +106,4 @@ const ForgotPassword: React.FC = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPassword;
