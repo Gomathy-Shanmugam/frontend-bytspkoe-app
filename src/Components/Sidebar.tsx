@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaClipboardList,
@@ -12,6 +13,7 @@ import {
   FaLayerGroup,
   
 } from "react-icons/fa";
+
 
 interface User {
   name: string;
@@ -28,15 +30,17 @@ const topItems = [
 ];
 
 const mastersSubItems = [
-  { icon: <FaClipboardList />, label: "KYB" },
-  { icon: <FaBolt />, label: "Admin Master" },
-  { icon: <FaUsersCog />, label: "Roles & Responsibilities" },
-  { icon: <FaBoxes />, label: "Inventory" },
+  { icon: <FaClipboardList />, label: "KYB",path:"/" },
+  { icon: <FaBolt />, label: "Admin Master",path:"/master" },
+  { icon: <FaUsersCog />, label: "Roles & Responsibilities",path:"/roles-master" },
+  { icon: <FaBoxes />, label: "Inventory",path:"" },
 ];
 
 const Sidebar: React.FC = () => {
   const [showMastersMenu, setShowMastersMenu] = useState(false);
   const [user, setUser] = useState<User>({ name: "", email: "" });
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -77,7 +81,7 @@ const Sidebar: React.FC = () => {
         <div className="submenu">
           <div className="submenu-top">
             {mastersSubItems.map((item, index) => (
-              <div key={index} className="submenu-item">
+              <div key={index} className="submenu-item" onClick={() => navigate(item.path)}>
                 <span className="me-2">{item.icon}</span>
                 <span>{item.label}</span>
               </div>

@@ -17,6 +17,10 @@ import RolesPage from "../Components/RolesPage";
 import PermissionsModal from "../Components/PermissionModal";
 import SuccessPopup from "../Components/SuccessPopup";
 import Enquiry from "../Components/Enquiry";
+import RolesMaster from "../Components/RolesMaster";
+import RolesMasterlistview from "../Components/RolesMasterListView";
+import FabricationList from "../Components/Fabricationlist";
+import FabricationCreation from "../Components/Fabricationcreation";
 
 const AppRoutes: RouteObject[] = [
   {
@@ -85,6 +89,14 @@ const AppRoutes: RouteObject[] = [
     element: <RolesPage />,
   },
   {
+    path: "/roles-master",
+    element: <RolesMaster />,
+  },
+  {
+    path: "/roles-masterlistview",
+    element: <RolesMasterlistview />,
+  },
+  {
     path: "/permission-modal",
     element: <PermissionsModal initialPermissions={[]} onClose={function (): void {
       throw new Error("Function not implemented.");
@@ -105,6 +117,14 @@ const AppRoutes: RouteObject[] = [
     } } onSave={function (): void {
       throw new Error("Function not implemented.");
     } }/>,
+  },
+  {
+    path: "/fabrication-list",
+    element: <FabricationList />,
+  },
+  {
+    path: "/fabrication-creation",
+    element: <FabricationCreation />,
   },
 
   

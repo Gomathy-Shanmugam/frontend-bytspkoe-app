@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, Modal, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import { FaArrowDown } from "react-icons/fa";
-
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import AxiosService from "../utils/AxiosService";
-
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
@@ -42,17 +40,14 @@ const EnquiryMasterList: React.FC = () => {
 
   const [seasonDetails, setSeasonDetails] = useState<SeasonDetail[]>([
     {
-      _id: "1", // 👈 changed from number to string
-      seasonName: "Spring Summer 2025", // 👈 also make sure key is 'seasonName', not 'name'
+      _id: "1", 
+      seasonName: "Spring Summer 2025", 
       status: "Active",
       createdBy: "Admin",
       createdAt: "24/03/2025", // 👈 use createdAt to match backend field
     },
   ]);
-  // const [newSeason, setNewSeason] = useState<Partial<SeasonDetail>>({
-  //   name: "",
-  //   status: "Active",
-  // });
+  
 
   const getCurrentDate = (): string => {
     const today = new Date();
