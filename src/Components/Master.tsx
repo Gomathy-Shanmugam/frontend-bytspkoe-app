@@ -54,9 +54,6 @@ const Master: React.FC = () => {
             onClick={toggleSidebar}
           />
         </div>
-     
-          
-        
 
         <div className="main-area">
           <h2 className="master-title"> List View</h2>
@@ -84,11 +81,11 @@ const Master: React.FC = () => {
                   <td>{p.status}</td>
                   <td>
                     <span
-                    className="arrow-circle"
+                      className="arrow-circle"
                       style={{ cursor: "pointer" }}
                       onClick={() => handleNextClick(p.name)}
                     >
-                      <FaArrowRight  className="arrow-icon"/>
+                      <FaArrowRight className="arrow-icon" />
                     </span>
                   </td>
                 </tr>

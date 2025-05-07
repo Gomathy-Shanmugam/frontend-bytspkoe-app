@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
-import { FaPlus, FaBars, FaArrowRight, FaTrashAlt } from "react-icons/fa";
+import { FaPlus, FaBars, FaArrowRight } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
+
 import Sidebar from "./Sidebar";
 import { v4 as uuidv4 } from "uuid";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import axiosService from "../utils/AxiosService";
 
 interface ProductItem {
   id: string;
@@ -16,6 +19,7 @@ interface ProductItem {
 }
 
 const ProductItemMasterList: React.FC = () => {
+  const [items, setItems] = useState<ProductItem[]>([]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -34,140 +38,103 @@ const ProductItemMasterList: React.FC = () => {
     status: "Active",
   });
 
-  const [items, setItems] = useState<ProductItem[]>([
-    {
-      id: "1",
-      name: "Polo",
-      group: "Street Wear",
-      status: "Active",
-      createdBy: "Admin",
-      createdOn: "24/03/2025",
-    },
-    {
-      id: "2",
-      name: "Peekey",
-      group: "Night Wear",
-      status: "Active",
-      createdBy: "Admin",
-      createdOn: "24/03/2025",
-    },
-  ]);
+  const [productItemSuggestions, setProductItemSuggestions] = useState<
+    string[]
+  >(["Polo", "Peekey", "Crew Neck"]);
 
-  const toggleExpand = () => setExpanded(!expanded);
+  const productGroupSuggestions = ["Street Wear", "Night Wear", "Formal Wear"];
+
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const toggleExpand = () => setExpanded(!expanded);
+
+  const fetchItems = async () => {
+    try {
+      const response = await axiosService.get("/product-items");
+      setItems(response.data);
+    } catch (error) {
+      console.error("Failed to fetch product items:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   const handleAddNew = () => {
     setNewItem({ name: "", group: "", status: "Active" });
     setShowAddModal(true);
   };
-
-  const handleSaveNewProduct = () => {
-    const newProduct: ProductItem = {
-      id: uuidv4(),
-      name: newItem.name || "",
-      group: newItem.group || "",
-      status: newItem.status || "Active",
-      createdOn: new Date().toLocaleDateString(),
-      createdBy: "Admin",
-    };
-
-    setItems([...items, newProduct]);
-    setAddedItemName(newProduct.name);
-    setNewItem({ name: "", group: "", status: "Active" });
-    setShowAddModal(false);
-    setShowAddSuccessModal(true);
+  const handleSaveNewProduct = async () => {
+    try {
+      const newProduct: ProductItem = {
+        id: uuidv4(),
+        name: newItem.name || "",   // Ensure `newItem` comes from useState
+        group: newItem.group || "",
+        status: newItem.status || "Active",
+        createdOn: new Date().toLocaleDateString(),
+        createdBy: "Admin",
+      };
+  
+      await axiosService.post("/product-items", newProduct);
+  
+      // Update table
+      setItems(prev => [...prev, newProduct]);
+  
+      // Add to suggestions (if needed)
+      if (!productItemSuggestions.includes(newProduct.name)) {
+        setProductItemSuggestions(prev => [...prev, newProduct.name]);
+      }
+  
+      // Update success state
+      setAddedItemName(newProduct.name);
+      setShowAddModal(false);
+      setShowAddSuccessModal(true);
+    } catch (error) {
+      console.error("Failed to save product item:", error);
+    }
   };
+  
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (!editItem || !editItem.id) return;
-
-    const updatedItems = items.map((item) =>
-      item.id === editItem.id
-        ? ({
-            ...editItem,
-            createdBy: item.createdBy,
-            createdOn: item.createdOn,
-          } as ProductItem)
-        : item
-    );
-
-    setItems(updatedItems);
-    setShowEditModal(false);
-    setAddedItemName(editItem.name || "");
-    setShowAddSuccessModal(true);
-  };
-  const confirmDelete = () => {
-    if (deleteItemId !== null) {
-      // Remove the item from the items array
+    try {
+      await axiosService.put(`/product-items/${editItem.id}`, editItem);
       setItems((prevItems) =>
-        prevItems.filter((item) => item.id !== deleteItemId)
+        prevItems.map((item) =>
+          item.id === editItem.id
+            ? ({ ...item, ...editItem } as ProductItem)
+            : item
+        )
       );
-
-      // Hide confirmation modal and show success modal
-      setShowDeleteConfirmModal(false);
-      setShowDeleteSuccessModal(true);
-
-      // Optionally, reset deleted item ID
-      setDeleteItemId(null);
+      setAddedItemName(editItem.name || "");
+      setShowEditModal(false);
+      setShowAddSuccessModal(true);
+    } catch (error) {
+      console.error("Failed to update item:", error);
     }
   };
 
-  const productItemSuggestions = [
-    "Polo",
-    "Peekey",
-    "Crew Neck",
-    "Henley",
-    "Tank Top",
-    "Round Neck T",
-    "Mock Neck",
-    "Raglan",
-    "T-shirt Full Sleeves",
-    "T-Shift Half Sleeves",
-    "Blazer",
-    "V -Neck Sleeveless",
-    "V-Neck Half Sleeves",
-    "V-Neck Full Sleeves",
-    "Sweater Vest",
-    "Vest",
-    "Boxer Shorts",
-    "Wrap",
-    "Bermuda ",
-    "Cargo Pants",
-    "Lounge Pants",
-    "Dinner Suit",
-    "Bomber Jackets",
-    "Jumper",
-    "Tactical Jacket",
-    "Caps",
-    "Mittens",
-    "Booties",
-    "Long Sleeved Body Suit",
-    "Swim short",
-    "Jockstraps",
-  ];
-  const productGroupSuggestions = [
-    "Street Wear",
-    "Night Wear",
-    "Formal Wear",
-    "Ethnic Wear",
-    "Sports Wear",
-    "Lounge Wear",
-    "Party Wear",
-    "Winter Wear",
-    "Outer Wear",
-    "Speciality Wear",
-    "Sleep Wear",
-    "Night Wear",
-    "Intimate Wear",
-    "Inner Wear",
-    "Active Wear",
-    "Intimate Wear",
-  ];
+  const confirmDelete = async () => {
+    if (!deleteItemId) return;
+    try {
+      await axiosService.delete(`/product-items/${deleteItemId}`);
+      setItems((prevItems) =>
+        prevItems.filter((item) => item.id !== deleteItemId)
+      );
+      setDeletedItemName(
+        items.find((item) => item.id === deleteItemId)?.name || ""
+      );
+      setDeleteItemId(null);
+      setShowDeleteConfirmModal(false);
+      setShowDeleteSuccessModal(true);
+    } catch (error) {
+      console.error("Failed to delete product item:", error);
+    }
+  };
 
   return (
     <div className="d-flex px-0 py-4">
       {showSidebar && <Sidebar />}
-
       <div
         className={`main-content ${
           showSidebar ? "with-sidebar" : "full-width"
@@ -176,12 +143,12 @@ const ProductItemMasterList: React.FC = () => {
         <div className="top-bar mb-3">
           <FaBars
             className="toggle-icon"
-            style={{ cursor: "pointer" }}
             onClick={toggleSidebar}
+            style={{ cursor: "pointer" }}
           />
         </div>
 
-        <h4 className="fw-bold mb-3">Product Item Master </h4>
+        <h4 className="fw-bold mb-3">Product Item Master</h4>
 
         <Table hover className="no-border-table">
           <thead className="table-light">
@@ -196,7 +163,7 @@ const ProductItemMasterList: React.FC = () => {
           </thead>
           <tbody>
             <tr className="grey-row">
-              <td>3</td>
+              <td>1</td>
               <td>Product Item</td>
               <td>21/03/2025</td>
               <td>Admin</td>
@@ -239,6 +206,7 @@ const ProductItemMasterList: React.FC = () => {
                           <th>Created By</th>
                           <th>Status</th>
                           <th>Edit</th>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -262,25 +230,25 @@ const ProductItemMasterList: React.FC = () => {
                             </td>
                             <td>
                               <span
+                                style={{ cursor: "pointer" }}
                                 onClick={() => {
                                   setEditItem(item);
                                   setShowEditModal(true);
                                 }}
-                                style={{ cursor: "pointer" }}
                               >
                                 ✏️
                               </span>
                             </td>
                             <td>
                               <span
-                                className="delete-icon"
+                                style={{ cursor: "pointer", color: "red" }}
                                 onClick={() => {
                                   setDeleteItemId(item.id);
                                   setDeletedItemName(item.name);
                                   setShowDeleteConfirmModal(true);
                                 }}
                               >
-                                -
+                                🗑️
                               </span>
                             </td>
                           </tr>
@@ -293,8 +261,6 @@ const ProductItemMasterList: React.FC = () => {
             )}
           </tbody>
         </Table>
-
-        {/* Add Modal */}
         <Modal
           show={showAddModal}
           onHide={() => setShowAddModal(false)}
@@ -417,23 +383,27 @@ const ProductItemMasterList: React.FC = () => {
 
         {/* ✅ Success Popup */}
         <Modal
-          className="edit-success-modal"
           show={showAddSuccessModal}
           onHide={() => setShowAddSuccessModal(false)}
           centered
-          backdrop="static"
         >
+          <Modal.Header closeButton>
+            <Modal.Title>Success</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             <p>
-              Successfully Updated: <span>{addedItemName}</span>
+              Product Item <strong>{addedItemName}</strong> has been added
+              successfully!
             </p>
+          </Modal.Body>
+          <Modal.Footer>
             <Button
+              variant="success"
               onClick={() => setShowAddSuccessModal(false)}
-              className="ok-btn"
             >
               OK
             </Button>
-          </Modal.Body>
+          </Modal.Footer>
         </Modal>
 
         {/* Delete Confirmation Modal */}

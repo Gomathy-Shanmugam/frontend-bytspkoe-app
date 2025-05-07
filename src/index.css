@@ -1110,6 +1110,7 @@ button.btn-light:hover {
 }
 .season-form-layout {
   padding: 6px 0;
+  text-align: left !important;
 }
 
 .form-label-custom {
@@ -1117,6 +1118,7 @@ button.btn-light:hover {
   font-size: 14px;
   margin-bottom: 6px;
   color: #333;
+  text-align: left ;
 }
 
 .form-control-custom {
@@ -1182,6 +1184,17 @@ button.btn-light:hover {
   border-radius: 12px;
   max-height: 400px; /* 👈 Set desired height */
   overflow-y: auto; /* Optional: scroll if content exceeds */
+}
+/* ===== Blurred background when modal/popup is active ===== */
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3); /* dark semi-transparent layer */
+  backdrop-filter: blur(1.25rem); /* 👈 blur effect */
+  z-index: 1040; /* below the modal but above everything else */
 }
 
 /* ------------Masterlistviewpage ----------- */
@@ -1334,11 +1347,14 @@ button.btn-light:hover {
   display: flex !important; /* Force Bootstrap modal to be a flex container */
   align-items: center; /* Vertical center */
   justify-content: center; /* Horizontal center */
+  
 }
 
 .edit-success-modal .modal-dialog {
   margin: 0; /* Remove default margin */
   max-width: 600px;
+  
+  
 }
 
 .edit-success-modal .modal-content {
@@ -1346,6 +1362,7 @@ button.btn-light:hover {
   padding: 24px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
 }
 
 .edit-success-modal .modal-body p {
@@ -1382,6 +1399,7 @@ button.btn-light:hover {
   border-radius: 16px;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  background-color: pink;
 }
 
 .ok-btn {

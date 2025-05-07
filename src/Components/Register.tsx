@@ -5,7 +5,7 @@ import AxiosService from "../utils/AxiosService";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/Byspoke-logo.png";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface RegisterFormData {
   name: string;
@@ -28,14 +28,14 @@ const Register: React.FC = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
     name: "",
     email: "",
-    role: "users",
+    role: "",
     password: "",
     cpassword: "",
   });
 
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [showCPassword, setShowCPassword] = useState(false); // State to toggle confirm password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -50,16 +50,34 @@ const Register: React.FC = () => {
 
   const validate = (): ValidationErrors => {
     const newErrors: ValidationErrors = {};
+
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Enter a valid email";
+    }
+
     if (!formData.role) newErrors.role = "Role is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters";
-    if (!formData.cpassword)
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else {
+      if (formData.password.length < 8) {
+        newErrors.password = "Password must be at least 8 characters long";
+      }
+      if (!/[a-zA-Z]/.test(formData.password)) {
+        newErrors.password = "Password must contain at least one letter";
+      }
+    }
+
+    if (!formData.cpassword) {
       newErrors.cpassword = "Confirm your password";
-    if (formData.password !== formData.cpassword)
+    } else if (formData.password !== formData.cpassword) {
       newErrors.cpassword = "Passwords do not match";
+    }
+
     return newErrors;
   };
 
@@ -76,13 +94,14 @@ const Register: React.FC = () => {
     try {
       const res = await AxiosService.post("/auth/signup", formData);
       if (res.status === 200 || res.status === 201) {
-        toast.success('Signup Successful', res.data.message);
+        toast.success("Signup Successful");
         navigate("/login");
       } else {
-        toast.error('Signup failed! try again', res.data.message);
+        toast.error(res.data.message || "Signup failed");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "signup error");
+      console.error("Signup error:", error?.response?.data);
+      toast.error(error?.response?.data?.message || "Signup error");
     }
   };
 
@@ -141,7 +160,7 @@ const Register: React.FC = () => {
 
             <Form.Group className="mb-3 position-relative">
               <Form.Control
-                type={showPassword ? "text" : "password"} // Toggle password visibility
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 name="password"
                 value={formData.password}
@@ -150,10 +169,10 @@ const Register: React.FC = () => {
               />
               <span
                 className="position-absolute top-50 end-0 translate-middle-y me-3"
-                onClick={() => setShowPassword(!showPassword)} // Toggle show/hide password
+                onClick={() => setShowPassword(!showPassword)}
                 style={{ cursor: "pointer" }}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Eye icon */}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
               <Form.Control.Feedback type="invalid">
                 {errors.password}
@@ -162,7 +181,7 @@ const Register: React.FC = () => {
 
             <Form.Group className="mb-3 position-relative">
               <Form.Control
-                type={showCPassword ? "text" : "password"} // Toggle confirm password visibility
+                type={showCPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 name="cpassword"
                 value={formData.cpassword}
@@ -171,10 +190,10 @@ const Register: React.FC = () => {
               />
               <span
                 className="position-absolute top-50 end-0 translate-middle-y me-3"
-                onClick={() => setShowCPassword(!showCPassword)} // Toggle show/hide confirm password
+                onClick={() => setShowCPassword(!showCPassword)}
                 style={{ cursor: "pointer" }}
               >
-                {showCPassword ? <FaEyeSlash /> : <FaEye />} {/* Eye icon */}
+                {showCPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
               <Form.Control.Feedback type="invalid">
                 {errors.cpassword}

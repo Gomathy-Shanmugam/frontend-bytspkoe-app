@@ -38,12 +38,13 @@ const Login: React.FC = () => {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
     const formData = new FormData(e.currentTarget);
     const formProps: LoginFormData = {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     };
-
+  
     const validationErrors = validate(formProps);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -51,20 +52,41 @@ const Login: React.FC = () => {
     } else {
       setErrors({});
     }
-
+  
     try {
       const response = await AxiosService.post("/auth/login", formProps);
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
+  
+      // Log the full response for debugging
+      console.log("Full response:", response);
+      console.log("Response data:", response.data);
+  
+      // Log token paths to identify the correct one
+      console.log("response.data.token:", response.data.token);
+  
+      // If the token exists under response.data.token
+      if (response.status === 201 && response.data.token) {
+        // Store token in localStorage
+        localStorage.setItem("token", response.data.token.access_token);
+        console.log("Token stored:", localStorage.getItem("token"));
+  
+        // Show success message
         toast.success(response.data.message);
-        navigate("/enquiry");
+  
+        // Navigate to /enquiry page after successful login
+        navigate("/enquiry"); // Only navigate after token is stored
       } else {
-        toast.error(response.data.message);
+        toast.error("Login failed: No token received.");
       }
     } catch (error: any) {
+      console.error("Login error:", error);
       toast.error(error?.response?.data?.message || "Login failed");
     }
   };
+  
+  
+  
+  
+  
 
   return (
     <div className="login-container">

@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table, Modal, Form } from "react-bootstrap";
 import Sidebar from "./Sidebar";
+import { FaArrowDown } from "react-icons/fa";
+
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
+import AxiosService from "../utils/AxiosService";
+
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 interface SeasonDetail {
-  id: number;
-  name: string;
+  _id: string;
+  seasonName: string;
   status: string;
-  createdBy: string;
-  createdOn: string;
+  createdBy?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 const EnquiryMasterList: React.FC = () => {
@@ -26,20 +33,26 @@ const EnquiryMasterList: React.FC = () => {
   const [itemToDelete, setItemToDelete] = useState<SeasonDetail | null>(null);
   const [addedSeasonName, setAddedSeasonName] = useState("");
   const [deletedSeasonName, setDeletedSeasonName] = useState("");
+  const [updatedSeasonName, setUpdatedSeasonName] = useState("");
+
+  const [newSeason, setNewSeason] = useState({
+    seasonName: "",
+    status: "Active",
+  });
 
   const [seasonDetails, setSeasonDetails] = useState<SeasonDetail[]>([
     {
-      id: 1,
-      name: "Spring Summer 2025",
+      _id: "1", // 👈 changed from number to string
+      seasonName: "Spring Summer 2025", // 👈 also make sure key is 'seasonName', not 'name'
       status: "Active",
       createdBy: "Admin",
-      createdOn: "24/03/2025",
+      createdAt: "24/03/2025", // 👈 use createdAt to match backend field
     },
   ]);
-  const [newSeason, setNewSeason] = useState<Partial<SeasonDetail>>({
-    name: "",
-    status: "Active",
-  });
+  // const [newSeason, setNewSeason] = useState<Partial<SeasonDetail>>({
+  //   name: "",
+  //   status: "Active",
+  // });
 
   const getCurrentDate = (): string => {
     const today = new Date();
@@ -51,13 +64,8 @@ const EnquiryMasterList: React.FC = () => {
 
   const handleExpandToggle = () => setExpandSeason(!expandSeason);
 
-  const handleAddNew = () => {
-    setNewSeason({ name: "", status: "Active" });
-    setShowAddModal(true);
-  };
-
-  const handleDeleteClick = (id: number) => {
-    const item = seasonDetails.find((s) => s.id === id);
+  const handleDeleteClick = (id: string) => {
+    const item = seasonDetails.find((s) => s._id === id);
     setItemToDelete(item || null);
     setShowDeleteConfirmModal(true);
   };
@@ -68,40 +76,120 @@ const EnquiryMasterList: React.FC = () => {
     setEditSeason(null);
   };
 
-  const handleSaveNewSeason = () => {
-    if (!newSeason.name) return; // Prevent undefined names
-
-    const newEntry: SeasonDetail = {
-      id: seasonDetails.length + 1,
-      name: newSeason.name, // Now guaranteed to be string
-      status: newSeason.status || "Active",
-      createdBy: "Admin",
-      createdOn: new Date().toLocaleDateString("en-GB"), // Format: DD/MM/YYYY
-    };
-
-    setSeasonDetails([...seasonDetails, newEntry]);
-
-    setNewSeason({ name: "", status: "Active" });
-    setAddedSeasonName(newSeason.name);
-    setShowAddModal(false);
-    setShowAddSuccessModal(true); // ✅ Correct state to show success popup
-    setNewSeason({ name: "", status: "Active" });
+  const handleAddNew = () => {
+    setShowAddModal(true); // Show Add modal
   };
 
-  const handleEditClick = (season: SeasonDetail) => {
-    setEditSeason({ ...season });
+  const fetchSeasons = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await AxiosService.get("/season", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSeasonDetails(response.data); // ✅ Update the state
+    } catch (error) {
+      console.error("Failed to fetch seasons", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSeasons();
+  }, []);
+
+  const handleSaveNewSeason = async () => {
+    const token = localStorage.getItem("token");
+    console.log("Token retrieved:", token);
+
+    if (!token) {
+      console.error("Token is missing or invalid.");
+      window.location.href = "/login";
+      return;
+    }
+
+    try {
+      const response = await AxiosService.post("/season", newSeason, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 201) {
+        toast.success("Season created successfully!");
+
+        // ✅ Add new season to the top of the list
+        setSeasonDetails((prev) => [response.data, ...prev]);
+
+        // ✅ Store added season name for the success modal
+        setAddedSeasonName(response.data.seasonName);
+
+        // ✅ Close the Add Modal
+        setShowAddModal(false);
+
+        // ✅ Show the success modal
+        setShowAddSuccessModal(true);
+
+        // ✅ Reset the form state
+        setNewSeason({ seasonName: "", status: "Active" });
+      }
+    } catch (error) {
+      console.error("Error saving season:", error);
+      toast.error("Failed to save the season.");
+    }
+  };
+
+  const handleEditClick = (season: any) => {
+    setEditSeason(season);
     setShowEditModal(true);
   };
 
-  const handleSaveEdit = () => {
-    if (!editSeason) return;
-
-    setSeasonDetails((prev) =>
-      prev.map((season) => (season.id === editSeason.id ? editSeason : season))
-    );
-
-    setShowEditModal(false);
+  const handleSaveEdit = async () => {
+    const token = localStorage.getItem("token");
     setShowEditSuccessModal(true);
+
+    if (!token) {
+      console.error("Token is missing or invalid.");
+      window.location.href = "/login";
+      return;
+    }
+
+    if (!editSeason || !editSeason._id) {
+      toast.error("No season selected for update.");
+      return;
+    }
+
+    try {
+      const response = await AxiosService.put(
+        `/season/${editSeason._id}`,
+        {
+          seasonName: editSeason.seasonName,
+          status: editSeason.status,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Season updated successfully!");
+        // Store updated name for success modal
+        setUpdatedSeasonName(response.data.seasonName);
+        setSeasonDetails((prev) => {
+          const updatedList = prev.filter(
+            (item) => item._id !== editSeason._id
+          );
+          return [response.data, ...updatedList];
+        });
+        setShowEditModal(false);
+        setShowEditSuccessModal(true); // Close the modal
+        setEditSeason(null); // Clear form state
+        setEditSeason(null); // Refresh table data
+      }
+    } catch (error) {
+      console.error("Error updating season:", error);
+      toast.error("Failed to update the season.");
+    }
   };
 
   const handleEditSeasonChange = (e: React.ChangeEvent<any>) => {
@@ -111,25 +199,40 @@ const EnquiryMasterList: React.FC = () => {
     }
   };
 
-  const handleNewSeasonChange = (e: React.ChangeEvent<any>) => {
-    const { name, value } = e.target;
+  const handleNewSeasonChange = (e: React.ChangeEvent<HTMLElement>) => {
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
     setNewSeason((prev) => ({ ...prev, [name]: value }));
   };
 
-  const confirmDelete = () => {
-    if (itemToDelete) {
-      // ✅ Set the deleted item's name
-      setDeletedSeasonName(itemToDelete.name);
+  const confirmDelete = async () => {
+    if (itemToDelete?._id) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await AxiosService.delete(
+          `/season/${itemToDelete._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      // ✅ Remove the item from the list
-      setSeasonDetails((prev) =>
-        prev.filter((season) => season.id !== itemToDelete.id)
-      );
+        if (response.status === 200 || response.status === 204) {
+          // Remove from frontend list
+          setSeasonDetails((prev) =>
+            prev.filter((season) => season._id !== itemToDelete._id)
+          );
 
-      // ✅ Reset the state
-      setItemToDelete(null);
-      setShowDeleteConfirmModal(false);
-      setShowDeleteSuccessModal(true);
+          toast.success("Season deleted successfully!");
+          setDeletedSeasonName(itemToDelete.seasonName);
+          setItemToDelete(null);
+          setShowDeleteConfirmModal(false);
+          setShowDeleteSuccessModal(true);
+        }
+      } catch (error) {
+        console.error("Error deleting season:", error);
+        toast.error("Failed to delete the season.");
+      }
     }
   };
 
@@ -162,19 +265,23 @@ const EnquiryMasterList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
+            {/* Default Static Row */}
             <tr className="grey-row">
               <td>1</td>
               <td>Season</td>
-              <td>24/03/2025</td>
+              <td>
+                <strong className="text-success">Active</strong>
+              </td>
               <td>Admin</td>
-              <td>Active</td>
+              <td>24/03/2025</td>
               <td>
                 <div className="arrow-circle" onClick={handleExpandToggle}>
-                  <FaArrowRight className="arrow-icon" />
+                  <FaArrowDown className="arrow-icon" />
                 </div>
               </td>
             </tr>
 
+            {/* Expanded Section - Shows All Added Seasons */}
             {expandSeason && (
               <tr>
                 <td colSpan={6}>
@@ -187,17 +294,24 @@ const EnquiryMasterList: React.FC = () => {
                     }}
                   >
                     <div className="p-3 full-width-container">
+                      {/* Add New Button */}
                       <div className="d-flex justify-content-end mb-2">
                         <Button
                           className="custom-add-button"
                           size="sm"
                           onClick={handleAddNew}
                         >
-                          <FaPlus className="plus-icon" /> Add 
+                          <FaPlus className="plus-icon" /> Add
                         </Button>
                       </div>
 
-                      <Table hover responsive className=" no-border-table mb-0 ">
+                      {/* Sub-table for Dynamic Seasons */}
+                      <Table
+                        striped
+                        hover
+                        responsive
+                        className="no-border-table mb-0"
+                      >
                         <thead className="table-light">
                           <tr>
                             <th>S.No</th>
@@ -206,13 +320,17 @@ const EnquiryMasterList: React.FC = () => {
                             <th>Created By</th>
                             <th>Created On</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                           </tr>
                         </thead>
                         <tbody>
                           {seasonDetails.map((item, index) => (
-                            <tr key={item.id}>
-                              <td>{item.id}</td>
-                              <td>{item.name}</td>
+                            <tr key={item._id || index}>
+                              {" "}
+                              {/* Use _id here instead of id */}
+                              <td>{index + 1}</td>
+                              <td>{item.seasonName}</td>{" "}
+                              {/* Ensure this is the correct property for the season name */}
                               <td>
                                 <strong
                                   className={
@@ -225,17 +343,24 @@ const EnquiryMasterList: React.FC = () => {
                                 </strong>
                               </td>
                               <td>{item.createdBy}</td>
-                              <td>{item.createdOn}</td>
-                              <td
-                                className="text-center"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => handleEditClick(item)}
-                              >
-                                ✏️
+                              <td>
+                                {item.createdAt
+                                  ? new Date(item.createdAt).toLocaleDateString(
+                                      "en-GB",
+                                      {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "numeric",
+                                      }
+                                    )
+                                  : "N/A"}
                               </td>
+                              {/* <td>{item.createdAt}</td>{" "} */}
+                              {/* Format the created date */}
+                              <td onClick={() => handleEditClick(item)}>✏️</td>
                               <td>
                                 <span
-                                  onClick={() => handleDeleteClick(item.id)}
+                                  onClick={() => handleDeleteClick(item._id)}
                                   className="delete-icon"
                                 >
                                   -
@@ -245,84 +370,6 @@ const EnquiryMasterList: React.FC = () => {
                           ))}
                         </tbody>
                       </Table>
-
-                      {/* ✅ Edit Success Modal */}
-                      <Modal
-                        className="edit-success-modal"
-                        show={showEditSuccessModal}
-                        onHide={() => setShowEditSuccessModal(false)}
-                        centered
-                      >
-                        <Modal.Body className="text-center p-4">
-                          <p className="fw-semibold mb-3">
-                            Successfully Updated:{" "}
-                            <span className="text-success fw-bold">
-                              {editSeason?.name}
-                            </span>
-                          </p>
-                          <Button
-                            className="ok-btn"
-                            onClick={() => setShowEditSuccessModal(false)}
-                          >
-                            OK
-                          </Button>
-                        </Modal.Body>
-                      </Modal>
-                      {/* Deletion model */}
-                      <Modal
-                        className="custom-delete-modal"
-                        show={showDeleteConfirmModal}
-                        onHide={() => setShowDeleteConfirmModal(false)}
-                        centered
-                      >
-                        <Modal.Body className="text-center p-4">
-                          <p className="fw-semibold mb-3">
-                            Are you sure you want to delete <br />
-                            <span className="text-danger fw-bold">
-                              {itemToDelete?.name}
-                            </span>
-                            ?
-                          </p>
-                          <div className="d-flex justify-content-center gap-3">
-                            <Button
-                              variant="secondary"
-                              onClick={() => setShowDeleteConfirmModal(false)}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              variant="outline-danger"
-                              onClick={confirmDelete}
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                        </Modal.Body>
-                      </Modal>
-
-                      {/* ✅ Delete Success Modal */}
-                      <Modal
-                        className="delete-success-modal"
-                        show={showDeleteSuccessModal}
-                        onHide={() => setShowDeleteSuccessModal(false)}
-                        centered
-                      >
-                        <Modal.Body className="text-center p-4">
-                          <p className="fw-semibold mb-3 ">
-                            Successfully Deleted:{" "}
-                            <span className="text-success fw-bold">
-                            {deletedSeasonName}
-                            </span>
-                            
-                          </p>
-                          <Button
-                            className="ok-btn"
-                            onClick={() => setShowDeleteSuccessModal(false)}
-                          >
-                            OK
-                          </Button>
-                        </Modal.Body>
-                      </Modal>
                     </div>
                   </div>
                 </td>
@@ -331,14 +378,19 @@ const EnquiryMasterList: React.FC = () => {
           </tbody>
         </Table>
 
-        {/* Add New Modal */}
-        <Modal show={showAddModal} onHide={handleModalClose} centered>
+        {/* Add New Season Modal */}
+        <Modal
+          className="blur-overlay"
+          show={showAddModal}
+          onHide={handleModalClose}
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>Add New Season</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form className="season-form-layout">
+            <Form className="season-form-layout ">
               <div className="d-flex gap-3 mb-4 flex-wrap align-items-end">
                 <Form.Group className="flex-grow-1">
                   <Form.Label className="form-label-custom">
@@ -346,8 +398,8 @@ const EnquiryMasterList: React.FC = () => {
                   </Form.Label>
                   <Form.Control
                     type="text"
-                    name="name"
-                    value={newSeason.name}
+                    name="seasonName"
+                    value={newSeason.seasonName || ""}
                     onChange={handleNewSeasonChange}
                     placeholder="Type here"
                     className="form-control-custom"
@@ -371,8 +423,11 @@ const EnquiryMasterList: React.FC = () => {
               {/* Single Save Button */}
               <div className="text-end">
                 <button
-                  className={`save-button ${newSeason.name ? "active" : ""}`}
-                  disabled={!newSeason.name}
+                  type="button"
+                  className={`save-button ${
+                    newSeason.seasonName ? "active" : ""
+                  }`}
+                  disabled={!newSeason.seasonName}
                   onClick={handleSaveNewSeason}
                 >
                   Save
@@ -382,15 +437,41 @@ const EnquiryMasterList: React.FC = () => {
           </Modal.Body>
         </Modal>
 
+        {/* Edit Success Modal */}
+        <Modal
+          className="edit-success-modal blur-overlay"
+          show={showEditSuccessModal}
+          onHide={() => setShowEditSuccessModal(false)}
+          centered
+        >
+          <Modal.Body className="text-center p-4">
+            <p className="fw-semibold mb-3">
+              Successfully Updated:{" "}
+              <span className="text-success fw-bold">{updatedSeasonName}</span>
+            </p>
+            <Button
+              className="ok-btn"
+              onClick={() => setShowEditSuccessModal(false)}
+            >
+              OK
+            </Button>
+          </Modal.Body>
+        </Modal>
+
         {/* Edit Season Modal */}
-        <Modal show={showEditModal} onHide={handleEditModalClose} centered>
+        <Modal
+          show={showEditModal}
+          centered
+          onHide={handleEditModalClose}
+          className="blur-overlay"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Edit Season</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {editSeason && (
               <Form
-                className="custom-form"
+                className="custom-form "
                 onSubmit={(e) => {
                   e.preventDefault();
                   handleSaveEdit();
@@ -401,8 +482,8 @@ const EnquiryMasterList: React.FC = () => {
                   <Form.Label className="custom-label">Season Name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="name"
-                    value={editSeason.name}
+                    name="seasonName"
+                    value={editSeason.seasonName}
                     onChange={handleEditSeasonChange}
                     className="custom-input"
                     placeholder="Type here"
@@ -427,11 +508,11 @@ const EnquiryMasterList: React.FC = () => {
                   <button
                     type="submit"
                     className={`custom-save-button mt-2 ${
-                      editSeason.name ? "active" : ""
+                      editSeason.seasonName ? "active" : ""
                     }`}
-                    disabled={!editSeason.name}
+                    disabled={!editSeason.seasonName}
                   >
-                    Save
+                    Update
                   </button>
                 </div>
               </Form>
@@ -446,18 +527,66 @@ const EnquiryMasterList: React.FC = () => {
           centered
           backdrop="static"
           dialogClassName="success-modal"
+          className="blur-overlay"
         >
-          <Modal.Body className="text-center p-4">
-            <p className="fs-5 mb-4">
+          <Modal.Body className="text-center p-4 ">
+            <p className="fw-semibold mb-3 ">
               Successfully Added:&nbsp;
-              <span className="text-success fw-bold">
-              {addedSeasonName}
-              </span>
-              
+              <span className="text-success fw-bold">{addedSeasonName}</span>
             </p>
             <Button
               className="ok-btn"
               onClick={() => setShowAddSuccessModal(false)}
+            >
+              OK
+            </Button>
+          </Modal.Body>
+        </Modal>
+
+        {/* Delete Confirmation Modal */}
+        <Modal
+          className="custom-delete-modal blur-overlay"
+          show={showDeleteConfirmModal}
+          onHide={() => setShowDeleteConfirmModal(false)}
+          centered
+        >
+          <Modal.Body className="text-center p-4">
+            <p className="fw-semibold mb-3">
+              Are you sure you want to delete <br />
+              <span className="text-danger fw-bold">
+                {itemToDelete?.seasonName}
+              </span>
+              ?
+            </p>
+            <div className="d-flex justify-content-center gap-3">
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirmModal(false)}
+              >
+                Cancel
+              </Button>
+              <Button variant="outline-danger" onClick={confirmDelete}>
+                Delete
+              </Button>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Delete Success Modal */}
+        <Modal
+          className="delete-success-modal blur-overlay"
+          show={showDeleteSuccessModal}
+          onHide={() => setShowDeleteSuccessModal(false)}
+          centered
+        >
+          <Modal.Body className="text-center p-4">
+            <p className="fw-semibold mb-3">
+              Successfully Deleted:{" "}
+              <span className="text-success fw-bold">{deletedSeasonName}</span>
+            </p>
+            <Button
+              className="ok-btn"
+              onClick={() => setShowDeleteSuccessModal(false)}
             >
               OK
             </Button>
