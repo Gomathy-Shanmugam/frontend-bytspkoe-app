@@ -20,7 +20,7 @@ import Enquiry from "../Components/Enquiry";
 import RolesMaster from "../Components/RolesMaster";
 import RolesMasterlistview from "../Components/RolesMasterListView";
 import FabricationList from "../Components/Fabricationlist";
-import FabricationCreation from "../Components/Fabricationcreation";
+ import FabricationCreation from "../Components/Fabricationcreation";
 
 const AppRoutes: RouteObject[] = [
   {

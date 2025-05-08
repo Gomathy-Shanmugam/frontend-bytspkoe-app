@@ -88,13 +88,13 @@ const FabricationCreation: React.FC = () => {
     
     // Check yarn fields
     yarnCompositions.forEach((yarn, yarnIndex) => {
-      if (!yarn.nValue) emptyFieldsMap[yarn-${yarnIndex}-nValue] = true;
-      if (!yarn.yComposition) emptyFieldsMap[yarn-${yarnIndex}-yComposition] = true;
+      if (!yarn.nValue) emptyFieldsMap[`yarn-${yarnIndex}-nValue`] = true;
+      if (!yarn.yComposition) emptyFieldsMap[`yarn-${yarnIndex}-yComposition`] = true;
       
       yarn.fibreGroups.forEach((fibre, fibreIndex) => {
-        if (!fibre.fibreName) emptyFieldsMap[yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName] = true;
-        if (!fibre.classification) emptyFieldsMap[yarn-${yarnIndex}-fibre-${fibreIndex}-classification] = true;
-        if (!fibre.fComposition) emptyFieldsMap[yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition] = true;
+        if (!fibre.fibreName) emptyFieldsMap[`yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName`] = true;
+        if (!fibre.classification) emptyFieldsMap[`yarn-${yarnIndex}-fibre-${fibreIndex}-classification`] = true;
+        if (!fibre.fComposition) emptyFieldsMap[`yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition`] = true;
       });
     });
 
@@ -141,7 +141,7 @@ const FabricationCreation: React.FC = () => {
     
     // Clear error when user starts typing
     if (value) {
-      setEmptyFields(prev => ({ ...prev, [yarn-${yarnIndex}-yComposition]: false }));
+      setEmptyFields(prev => ({ ...prev, [`yarn-${yarnIndex}-yComposition`]: false }));
     }
   };
 
@@ -190,7 +190,7 @@ const FabricationCreation: React.FC = () => {
     
     // Clear error when user starts typing
     if (value) {
-      setEmptyFields(prev => ({ ...prev, [yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition]: false }));
+      setEmptyFields(prev => ({ ...prev, [`yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition`]: false }));
     }
   };
 
@@ -245,7 +245,7 @@ const FabricationCreation: React.FC = () => {
   };
 
   return (
-    <div className={fabrication-container `${hasUserInteracted ? 'show-errors' : ''}`}>
+    <div className={`fabrication-container ${hasUserInteracted ? 'show-errors' : ''}`}>
       <div className="breadcrumb">Home &gt; Fabric Composition Creation</div>
 
       <div className="error-messages-container">
@@ -337,8 +337,8 @@ const FabricationCreation: React.FC = () => {
         <div className="yarn-panels-container" style={{ width: getPanelWidth() }}>
           {yarnCompositions.map((yarn, yarnIndex) => (
             <div 
-              key={yarn-${yarnIndex}} 
-              className={yarn-panel ${yarnError ? 'error-border' : ''}}
+              key={`yarn-${yarnIndex}`} 
+              className={`yarn-panel ${yarnError ? 'error-border' : ''}`}
               style={{ width: '25%' }}
             >
               <h3 className="yarn-heading">Yarn {yarnIndex + 1}</h3>
@@ -372,7 +372,7 @@ const FabricationCreation: React.FC = () => {
                         newData[yarnIndex].nValue = e.target.value;
                         setYarnCompositions(newData);
                         if (e.target.value) {
-                          setEmptyFields(prev => ({ ...prev, [yarn-${yarnIndex}-nValue]: false }));
+                          setEmptyFields(prev => ({ ...prev, [`yarn-${yarnIndex}-nValue`]: false }));
                         }
                       }}
                     />
@@ -382,7 +382,7 @@ const FabricationCreation: React.FC = () => {
                 <div className="right-column">
                   <div className="form-group y-composition-group">
                     <label>Y.Composition</label>
-                    <div className={`y-composition-input ${yarnError ? 'error' : ''} ${isFieldEmpty(yarn-${yarnIndex}-yComposition) ? 'error' : ''}`}>
+                    <div className={`y-composition-input ${yarnError ? 'error' : ''} ${isFieldEmpty(`yarn-${yarnIndex}-yComposition`) ? 'error' : ''}`}>
                       <input
                         type="text"
                         value={yarn.yComposition}
@@ -395,7 +395,7 @@ const FabricationCreation: React.FC = () => {
               </div>
 
               {yarn.fibreGroups.map((fibre, fibreIndex) => (
-                <div key={fibre-${fibreIndex}} className="fibre-details">
+                <div key={`fibre-${fibreIndex}`} className="fibre-details">
                   <h4 className="fibre-heading">Fibre Details {fibreIndex + 1}</h4>
                   
                   <div className="fibre-fields-container">
@@ -403,14 +403,18 @@ const FabricationCreation: React.FC = () => {
                       <div className="fibre-field-group">
                         <label>Fibre Name</label>
                         <select
-                          className={isFieldEmpty(yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName) ? 'error' : ''}
+                          className={isFieldEmpty(`yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName`) ? 'error' : ''}
                           value={fibre.fibreName}
                           onChange={(e) => {
                             const newData = [...yarnCompositions];
                             newData[yarnIndex].fibreGroups[fibreIndex].fibreName = e.target.value;
                             setYarnCompositions(newData);
+                            
                             if (e.target.value) {
-                              setEmptyFields(prev => ({ ...prev, [yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName]: false }));
+                              setEmptyFields((prev) => ({
+                                ...prev,
+                                [yarn-${yarnIndex}-fibre-${fibreIndex}-fibreName]: false
+                              }));
                             }
                           }}
                         >
@@ -432,7 +436,7 @@ const FabricationCreation: React.FC = () => {
                       <div className="fibre-field-group classification-group">
                         <label>Classification</label>
                         <select
-                          className={isFieldEmpty(yarn-${yarnIndex}-fibre-${fibreIndex}-classification) ? 'error' : ''}
+                          className={isFieldEmpty(`yarn-${yarnIndex}-fibre-${fibreIndex}-classification`) ? 'error' : ''}
                           value={fibre.classification}
                           onChange={(e) => {
                             const newData = [...yarnCompositions];
@@ -457,7 +461,7 @@ const FabricationCreation: React.FC = () => {
                       
                       <div className="fibre-field-group">
                         <label>F.Composition</label>
-                        <div className={`f-composition-input ${fibreError || emptyFibreError ? 'error' : ''} ${isFieldEmpty(yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition) ? 'error' : ''}`}>
+                        <div className={`f-composition-input ${fibreError || emptyFibreError ? 'error' : ''} ${isFieldEmpty(`yarn-${yarnIndex}-fibre-${fibreIndex}-fComposition`) ? 'error' : ''}`}>
                           <input
                             type="text"
                             value={fibre.fComposition}
@@ -497,3 +501,11 @@ const FabricationCreation: React.FC = () => {
 };
 
 export default FabricationCreation;
+function handleSave(event: React.MouseEvent<HTMLButtonElement>): void {
+  throw new Error('Function not implemented.');
+}
+
+function setShowPopup(arg0: boolean): void {
+  throw new Error('Function not implemented.');
+}
+
